@@ -1,0 +1,1066 @@
+{
+    "dataset_name": "consent_guard_synthetic_v1",
+    "description": "150-message synthetic ground truth for CCPA dark-pattern detection testing. 100 manipulative examples across 5 categories, 50 legit hard-negative near-misses.",
+    "categories": [
+        "false_urgency",
+        "confirm_shaming",
+        "forced_continuity",
+        "drip_pricing",
+        "basket_sneaking"
+    ],
+    "total_messages": 150,
+    "flagged_count": 100,
+    "clean_count": 50,
+    "messages": [
+        {
+            "id": "msg_001",
+            "text": "Stay protected  |  No, I'll risk it without insurance",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_002",
+            "text": "Continue with Bloom Skincare Premium  |  No thanks, I like paying more than I need to",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_003",
+            "text": "Extended Warranty is available for ₹49 — tap 'Add to order' if you'd like it. Not included by default.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_004",
+            "text": "We've added Priority Support (₹149/mo) to your cart to help you get started faster. Remove it in the cart if not needed.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_005",
+            "text": "Express Delivery (₹99) is optional — select it below if you'd like faster shipping.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_006",
+            "text": "Yes, keep my discount  |  No, I don't want to save money",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_007",
+            "text": "Final price: ₹599 (GST and platform fee already included).",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_008",
+            "text": "We've included Express Delivery (₹149) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_009",
+            "text": "Final reminder: this exclusive rate expires at midnight, and we can't guarantee it later.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_010",
+            "text": "Last chance, Meera — this price won't be shown to you again after today.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_011",
+            "text": "Your order now includes Extended Warranty (₹99) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_012",
+            "text": "⏰ Hurry Divya! your storage plan deal expires in 2 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_013",
+            "text": "Your your subscription total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_014",
+            "text": "Your your monthly refill total is ₹1499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_015",
+            "text": "Your your monthly refill total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_016",
+            "text": "We've included Express Delivery (₹149) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_017",
+            "text": "Your your ride credits pack total is ₹1499 — plus a ₹49 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_018",
+            "text": "You're subscribed to Nimbus Cloud Storage. Cancel anytime, no calls or emails needed — just tap 'Cancel Subscription' in the app.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_019",
+            "text": "Your free trial for RideNow Cabs continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_020",
+            "text": "Your your grocery box total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_021",
+            "text": "Last chance, Ankit — this price won't be shown to you again after today.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_022",
+            "text": "We've included Express Delivery (₹199) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_023",
+            "text": "This is your scheduled renewal notice for PocketFund Mutual Funds, due on 12 Feb, sent as required 24 hours in advance.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_024",
+            "text": "Continue with Bloom Skincare Premium  |  No thanks, continue with Basic",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_025",
+            "text": "We've included Express Delivery (₹49) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_026",
+            "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_027",
+            "text": "Your your monthly refill total is ₹499 — plus a ₹79 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_028",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_029",
+            "text": "Reminder: your UPI AutoPay mandate for Zylo Fitness is scheduled to renew today, 5 Feb.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_030",
+            "text": "Final reminder: this exclusive rate expires at midnight, and we can't guarantee it later.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_031",
+            "text": "You're subscribed to PocketFund Mutual Funds. Cancel anytime, no calls or emails needed — just tap 'Cancel Subscription' in the app.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_032",
+            "text": "Final reminder: this exclusive rate expires at midnight, and we can't guarantee it later.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_033",
+            "text": "Checkout price: ₹2499. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_034",
+            "text": "Checkout price: ₹999. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_035",
+            "text": "You'll pay exactly ₹1099 today — this is the complete amount, nothing added later.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_036",
+            "text": "Stay protected  |  No, I'll risk it without insurance",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_037",
+            "text": "Only a few hours left! Renew your Premium plan now before this one-time offer disappears forever.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_038",
+            "text": "Would you like to add Priority Support for ₹99/mo? [ Add ]  [ No thanks ]",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_039",
+            "text": "Express Delivery (₹99) is optional — select it below if you'd like faster shipping.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_040",
+            "text": "Yes, keep my discount  |  No, I don't want to save money",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_041",
+            "text": "Your your Premium plan total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_042",
+            "text": "⏰ Hurry Sneha! your monthly refill deal expires in 2 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_043",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_044",
+            "text": "This is your scheduled renewal notice for RideNow Cabs, due on 15 Feb, sent as required 24 hours in advance.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_045",
+            "text": "Your your order total is ₹999 — plus a ₹79 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_046",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_047",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_048",
+            "text": "Your your storage plan mandate expires on 16 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_049",
+            "text": "Final reminder: this exclusive rate expires at midnight, and we can't guarantee it later.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_050",
+            "text": "Checkout price: ₹1499. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_051",
+            "text": "Yes, keep my discount  |  No, I don't want to save money",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_052",
+            "text": "Continue with Zylo Fitness Premium  |  No thanks, continue with Basic",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_053",
+            "text": "Keep my your storage plan active  |  No, I don't care about my progress",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_054",
+            "text": "Final price: ₹599 (GST and platform fee already included).",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_055",
+            "text": "⏰ Hurry Sneha! your Premium plan deal expires in 24 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_056",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_057",
+            "text": "⏰ Hurry Priya! your ride credits pack deal expires in 2 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_058",
+            "text": "Only a few hours left! Renew your SIP installment now before this one-time offer disappears forever.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_059",
+            "text": "Keep my your subscription active  |  No, I don't care about my progress",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_060",
+            "text": "Your free trial for CloudNine Insurance continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_061",
+            "text": "Your your ride credits pack will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_062",
+            "text": "Your order now includes Extended Warranty (₹199) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_063",
+            "text": "Your your subscription total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_064",
+            "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_065",
+            "text": "Continue with Vantage SaaS Premium  |  No thanks, I like paying more than I need to",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_066",
+            "text": "Express Delivery (₹49) is optional — select it below if you'd like faster shipping.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_067",
+            "text": "Extended Warranty is available for ₹149 — tap 'Add to order' if you'd like it. Not included by default.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_068",
+            "text": "You're subscribed to StreamPlex. Cancel anytime, no calls or emails needed — just tap 'Cancel Subscription' in the app.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_069",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_070",
+            "text": "Your order now includes Extended Warranty (₹49) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_071",
+            "text": "Your your Premium plan total is ₹999 — plus a ₹99 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_072",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_073",
+            "text": "Your your grocery box total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_074",
+            "text": "Stay protected  |  No, I'll risk it without insurance",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_075",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_076",
+            "text": "Your order now includes Extended Warranty (₹149) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_077",
+            "text": "Your your order mandate expires on 13 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_078",
+            "text": "Your order now includes Extended Warranty (₹199) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_079",
+            "text": "Your free trial for Zylo Fitness continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_080",
+            "text": "Checkout price: ₹2499. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_081",
+            "text": "Your free trial for StreamPlex continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_082",
+            "text": "We've added Priority Support (₹49/mo) to your cart to help you get started faster. Remove it in the cart if not needed.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_083",
+            "text": "Continue with Zylo Fitness Premium  |  No thanks, continue with Basic",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_084",
+            "text": "Stay protected  |  No, I'll risk it without insurance",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_085",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_086",
+            "text": "Your your storage plan total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_087",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_088",
+            "text": "We've included Express Delivery (₹149) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_089",
+            "text": "Checkout price: ₹1499. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_090",
+            "text": "⏰ Hurry Ankit! your storage plan deal expires in 3 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_091",
+            "text": "We've included Express Delivery (₹149) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_092",
+            "text": "Last chance, Divya — this price won't be shown to you again after today.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_093",
+            "text": "Your your ride credits pack total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_094",
+            "text": "Your free trial for StreamPlex continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_095",
+            "text": "Your order now includes Extended Warranty (₹49) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_096",
+            "text": "Upgrade my plan  |  Keep my current plan",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_097",
+            "text": "We've renewed your monthly refill for you. To cancel, please write in to support and allow 5-7 business days for processing.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_098",
+            "text": "Final price: ₹1999 (GST and platform fee already included).",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_099",
+            "text": "Your policy's grace period for QuickMeds Pharmacy ends on 13 Feb, per the terms you agreed to at signup.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_100",
+            "text": "Your your SIP installment mandate expires on 3 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_101",
+            "text": "Express Delivery (₹99) is optional — select it below if you'd like faster shipping.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_102",
+            "text": "Your your order total is ₹999 — plus a ₹99 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_103",
+            "text": "⏰ Hurry Rakesh! your monthly refill deal expires in 6 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_104",
+            "text": "Your order now includes Extended Warranty (₹99) — a popular add-on we've pre-selected for you.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_105",
+            "text": "Complete your order for ₹1499 — additional charges may apply, revealed after you enter payment details.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_106",
+            "text": "⏰ Hurry Rakesh! your subscription deal expires in 3 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_107",
+            "text": "You're subscribed to PocketFund Mutual Funds. Cancel anytime, no calls or emails needed — just tap 'Cancel Subscription' in the app.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_108",
+            "text": "Your your SIP installment will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_109",
+            "text": "Only a few hours left! Renew your ride credits pack now before this one-time offer disappears forever.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_110",
+            "text": "Continue with StreamPlex Premium  |  No thanks, I like paying more than I need to",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_111",
+            "text": "Continue with QuickMeds Pharmacy Premium  |  No thanks, continue with Basic",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_112",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_113",
+            "text": "Stay protected  |  No, I'll risk it without insurance",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_114",
+            "text": "You're subscribed to Bloom Skincare. Cancel anytime, no calls or emails needed — just tap 'Cancel Subscription' in the app.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_115",
+            "text": "Your your subscription total is ₹2499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_116",
+            "text": "Your your storage plan mandate expires on 9 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_117",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_118",
+            "text": "Your your grocery box will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_119",
+            "text": "Express Delivery (₹149) is optional — select it below if you'd like faster shipping.",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_120",
+            "text": "Upgrade my plan  |  Keep my current plan",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_121",
+            "text": "Add insurance  |  No, skip insurance",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_122",
+            "text": "Last chance, Meera — this price won't be shown to you again after today.",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_123",
+            "text": "Complete your order for ₹1499 — additional charges may apply, revealed after you enter payment details.",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_124",
+            "text": "Checkout price: ₹999. (Taxes, service charge, and a processing fee will be added at the last step.)",
+            "category": "drip_pricing",
+            "expected_flag": true,
+            "notes": "Mandatory fees withheld from the headline price until the final step."
+        },
+        {
+            "id": "msg_125",
+            "text": "Cancellation for QuickMeds Pharmacy is only available by mailing a signed request to our registered office.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_126",
+            "text": "We've included Express Delivery (₹149) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_127",
+            "text": "We've included Express Delivery (₹199) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_128",
+            "text": "Your free trial for RideNow Cabs continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_129",
+            "text": "🔥 6 people are viewing this offer right now. Lock in your discount before it's gone!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_130",
+            "text": "⏰ Hurry Ankit! your ride credits pack deal expires in 6 hours — don't miss out!",
+            "category": "false_urgency",
+            "expected_flag": true,
+            "notes": "Manufactured deadline with no linked system fact — classic false urgency."
+        },
+        {
+            "id": "msg_131",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_132",
+            "text": "Renew your grocery box  |  Cancel your grocery box",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_133",
+            "text": "Continue with Nimbus Cloud Storage Premium  |  No thanks, continue with Basic",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_134",
+            "text": "Your free trial for Bloom Skincare continues automatically — to stop being charged, you'll need to call our support line during business hours.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_135",
+            "text": "Your subscription will keep renewing. There's no cancel button in the app — please email us to request cancellation.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_136",
+            "text": "This is your scheduled renewal notice for CloudNine Insurance, due on 5 Feb, sent as required 24 hours in advance.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_137",
+            "text": "Your your monthly refill will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_138",
+            "text": "We've added Priority Support (₹99/mo) to your cart to help you get started faster. Remove it in the cart if not needed.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_139",
+            "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
+            "category": "forced_continuity",
+            "expected_flag": true,
+            "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
+        },
+        {
+            "id": "msg_140",
+            "text": "Your policy's grace period for StreamPlex ends on 19 Feb, per the terms you agreed to at signup.",
+            "category": "false_urgency",
+            "expected_flag": false,
+            "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
+        },
+        {
+            "id": "msg_141",
+            "text": "Get the upgrade  |  No thanks, I prefer the slower experience",
+            "category": "confirm_shaming",
+            "expected_flag": true,
+            "notes": "Decline option is worded to guilt or belittle the user for choosing it."
+        },
+        {
+            "id": "msg_142",
+            "text": "We've added Priority Support (₹49/mo) to your cart to help you get started faster. Remove it in the cart if not needed.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_143",
+            "text": "We've included Express Delivery (₹199) on your order by default to save you time.",
+            "category": "basket_sneaking",
+            "expected_flag": true,
+            "notes": "Paid add-on pre-added to cart without explicit opt-in — user must notice and remove it."
+        },
+        {
+            "id": "msg_144",
+            "text": "Upgrade my plan  |  Keep my current plan",
+            "category": "confirm_shaming",
+            "expected_flag": false,
+            "notes": "Decline option is neutral and factual — describes the alternative, no guilt language."
+        },
+        {
+            "id": "msg_145",
+            "text": "Would you like to add Priority Support for ₹149/mo? [ Add ]  [ No thanks ]",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_146",
+            "text": "Your your grocery box total, including all taxes and fees, is ₹599. No hidden charges at checkout.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_147",
+            "text": "You'll pay exactly ₹1999 today — this is the complete amount, nothing added later.",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        },
+        {
+            "id": "msg_148",
+            "text": "Your your Premium plan will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "category": "forced_continuity",
+            "expected_flag": false,
+            "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
+        },
+        {
+            "id": "msg_149",
+            "text": "Would you like to add Priority Support for ₹99/mo? [ Add ]  [ No thanks ]",
+            "category": "basket_sneaking",
+            "expected_flag": false,
+            "notes": "Add-on requires explicit user action to include — nothing pre-added."
+        },
+        {
+            "id": "msg_150",
+            "text": "Final price: ₹1999 (GST and platform fee already included).",
+            "category": "drip_pricing",
+            "expected_flag": false,
+            "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
+        }
+    ]
+}
