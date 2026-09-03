@@ -25,6 +25,9 @@ import {
 import DemoGuide from '@/components/DemoGuide';
 
 export default function ConsentGuardApp() {
+  const [booting, setBooting] = useState(true);
+  const [progress, setProgress] = useState(0);
+
   const [phase, setPhase] = useState<'landing' | 'app'>('landing');
   const [view, setView] = useState<'live' | 'log'>('live');
   
@@ -42,6 +45,15 @@ export default function ConsentGuardApp() {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
+
+  // Boot Sequence
+  useEffect(() => {
+    const t1 = setTimeout(() => setProgress(25), 100);
+    const t2 = setTimeout(() => setProgress(80), 800);
+    const t3 = setTimeout(() => setProgress(100), 1200);
+    const t4 = setTimeout(() => setBooting(false), 2000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+  }, []);
 
   // Real-time Event Subscription (SSE)
   useEffect(() => {
@@ -125,7 +137,16 @@ export default function ConsentGuardApp() {
   };
 
   return (
-    <div className="app-layout" style={{ paddingBottom: '48px', position: 'relative' }}>
+    <>
+      <div className={`bootloader-wrapper ${!booting ? 'loaded' : ''}`}>
+        <Image src="/logo.svg" alt="Consent Guard" width={100} height={100} className="bootloader-icon" priority />
+        <div className="bootloader-text">Initialize Compliance Engine</div>
+        <div className="bootloader-track">
+          <div className="bootloader-fill" style={{ width: `${progress}%` }} />
+        </div>
+      </div>
+      
+      <div className="app-layout" style={{ paddingBottom: '48px', position: 'relative' }}>
       <TopBar 
         view={view} 
         onViewChange={setView} 
@@ -206,5 +227,6 @@ export default function ConsentGuardApp() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }

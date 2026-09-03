@@ -299,6 +299,36 @@ body::after {
 .btn-secondary { background: var(--bg-surface-solid); border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
 .btn-secondary:hover { background: var(--bg-canvas); box-shadow: var(--shadow-md); }
 
+/* ── Bootloader ───────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.2)); transform: scale(1); opacity: 0.9; }
+  50% { filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.7)); transform: scale(1.05); opacity: 1; }
+}
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.bootloader-wrapper {
+  position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center;
+  align-items: center; background-color: var(--background); z-index: 99999;
+  transition: opacity 0.8s cubic-bezier(0.87, 0, 0.13, 1), transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+  gap: 2rem;
+}
+.bootloader-wrapper.loaded { opacity: 0; pointer-events: none; transform: translateY(-40px); }
+.bootloader-icon { animation: pulse-glow 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.bootloader-text {
+  animation: slide-up-fade 0.8s ease-out forwards; color: var(--text-secondary);
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.15em; opacity: 0; text-transform: uppercase;
+}
+.bootloader-track {
+  width: 260px; height: 1px; background: var(--border-subtle); position: relative; opacity: 0;
+  animation: slide-up-fade 0.8s ease-out forwards 0.2s;
+}
+.bootloader-fill {
+  position: absolute; top: 0; left: 0; height: 100%; background: var(--accent-blue);
+  width: 0%; transition: width 1.8s cubic-bezier(0.87, 0, 0.13, 1); box-shadow: 0 0 10px var(--accent-blue);
+}
+
 /* ── Ledger ───────────────────────────────────────────────── */
 .ledger-area { flex: 1; overflow-y: auto; background: rgba(255,255,255,0.4); }
 .ledger-table { width: 100%; border-collapse: collapse; }
