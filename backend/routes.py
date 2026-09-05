@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from fastapi import APIRouter, HTTPException, Depends
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from sqlalchemy.orm import Session
 
 from models import (
@@ -26,9 +25,10 @@ from crud import (
     get_message_by_id,
     get_latest_decision_for_message,
 )
-from database import get_db, SessionLocal
+from database import get_db
 from event_manager import sse_manager
-from audit_log import write_decision, clear_log
+from audit_log import write_decision, clear_log, _DEFAULT_LOG_PATH
+from security import require_api_key, enforce_rate_limit
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,12 @@ async def sse_stream():
 
 
 @router.post("/intercept")
-async def intercept_message(request: InterceptRequest, db: Session = Depends(get_db)) -> dict:
+async def intercept_message(
+    request: InterceptRequest,
+    _: None = Depends(require_api_key),
+    __: None = Depends(enforce_rate_limit),
+    db: Session = Depends(get_db),
+) -> dict:
     message = Message(
         content=request.content,
         agent_id=request.agent_id,
@@ -171,6 +176,19 @@ async def reject_message(message_id: str, action: ReviewAction, db: Session = De
 @router.get("/audit-log")
 async def get_audit_log_route(limit: int = 200, db: Session = Depends(get_db)) -> list[dict]:
     return read_audit_log(db, limit)
+
+
+@router.get("/audit-log.jsonl")
+async def download_audit_log() -> FileResponse:
+    """Download raw append-only audit log as newline-delimited JSON."""
+    if not _DEFAULT_LOG_PATH.exists():
+        _DEFAULT_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _DEFAULT_LOG_PATH.touch()
+    return FileResponse(
+        path=_DEFAULT_LOG_PATH,
+        media_type="application/x-ndjson",
+        filename="audit_log.jsonl",
+    )
 
 
 @router.post("/reset")

@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Consent Guard — AI Commerce Compliance Layer',
-  description: 'Real-time governance layer that intercepts, classifies, and audits AI agent messages for CCPA dark patterns before they reach customers.',
+  description: 'Real-time governance layer that intercepts, classifies, and audits AI agent messages for India CCPA 2023 dark-pattern categories before they reach customers.',
 };
 
 export default function RootLayout({

@@ -13,8 +13,8 @@ interface TopBarProps {
 }
 
 export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSummary, replayLoading }: TopBarProps) {
-  const exportCSV = () => {
-    window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/audit-log`, '_blank');
+  const exportJSONL = () => {
+    window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/audit-log.jsonl`, '_blank');
   };
 
   return (
@@ -53,12 +53,12 @@ export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSu
             color: 'var(--accent-amber-text)' 
           }}
         >
-          {replayLoading ? 'REPLAYING TRACE...' : 'REPLAY: FTX\'26'}
+          {replayLoading ? 'RUNNING TRACE...' : 'RUN GUIDED TRACE'}
         </button>
 
         <button 
           className="btn-secondary" 
-          onClick={exportCSV} 
+          onClick={exportJSONL} 
           style={{ height: 'var(--space-7)', fontSize: 'var(--text-xs)', padding: '0 10px' }}
         >
           EXPORT AUDIT (.JSONL)
@@ -77,7 +77,7 @@ export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSu
           onClick={onReset}
           style={{ height: 'var(--space-7)', fontSize: 'var(--text-xs)', padding: '0 10px' }}
         >
-          RESET TRACE
+          RESET SESSION
         </button>
       </div>
     </motion.header>

@@ -2,7 +2,7 @@
 LLM classifier for Consent Guard.
 
 Supports multiple LLM providers (Gemini, OpenAI, Anthropic) to classify
-messages against four CCPA dark-pattern categories: confirm_shaming,
+messages against four India CCPA 2023 dark-pattern categories: confirm_shaming,
 forced_continuity, drip_pricing, basket_sneaking. Also serves as a
 fallback for ambiguous false-urgency cases that the regex pre-filter
 can't confidently resolve.
@@ -36,7 +36,7 @@ _LLM_CATEGORIES = {
     DarkPatternCategory.FALSE_URGENCY,  # fallback for ambiguous urgency
 }
 
-_SYSTEM_PROMPT = """You are a compliance classifier for CCPA and DPDP dark-pattern taxonomies.
+_SYSTEM_PROMPT = """You are a compliance classifier aligned to India's Central Consumer Protection Authority (CCPA) 2023 dark-pattern guidelines.
 
 Your job: analyze the given agent-to-customer message and determine if it contains any of these dark-pattern categories:
 

@@ -1,132 +1,165 @@
-<div align="center">
-  <img src="frontend/public/logo.svg" alt="Consent Guard Logo" width="120" />
-  <h1>🛡️ Consent Guard</h1>
-  <p><strong>The Fail-Safe CCPA-style Compliance Layer for Agentic Commerce</strong></p>
-  
-  <p>
-    Built for the Razorpay Agentic Commerce Build-a-thon. 
-  </p>
+# Consent Guard
 
-  <p>
-    <a href="#-the-agentic-dilemma">The Problem</a> •
-    <a href="#-architecture--flow">Architecture</a> •
-    <a href="#-ccpa-taxonomy">Taxonomy</a> •
-    <a href="#-quick-start">Installation</a>
-  </p>
-</div>
+Consent Guard is a compliance guardrail for agentic commerce messaging.  
+It intercepts agent-to-customer text, flags manipulative dark patterns, and requires human review before release.
+
+Built for Razorpay Buildathon (Agentic Commerce track).
 
 ---
 
-## 🚨 The Agentic Dilemma
+## 1) Problem → Business Impact
 
-As autonomous AI agents take over localized commerce—negotiating prices, upselling subscriptions, and forcing cart conversions—a dangerous side-effect emerges: **Optimization for manipulation**
+Agentic commerce systems optimize conversion aggressively. Without language guardrails, agents can drift into manipulative messaging (false urgency, confirm shaming, hidden fees framing, etc.).
 
-To hit conversion metrics, AI agents drift toward B2C "dark patterns"—manufacturing false scarcity, deploying forced continuity traps, and utilizing confirm-shaming. If a payments platform route...
+For payment platforms and merchants, this can increase:
+- refund/dispute risk,
+- trust erosion and churn,
+- compliance operations overhead.
 
-### Consent Guard is the deterministic intercept layer.
-It sits directly between your commerce agent and the end-consumer, intercepting manipulative messages before they reach the customer.
+Consent Guard provides a **fail-closed interception layer** with an auditable decision trail.
 
 ---
 
-## ⚙️ Architecture & Flow
+## 2) Regulatory scope and terminology
 
-To serve as a viable B2B compliance gateway, a firewall cannot rely on 3000ms LLM calls dragging down every single chat message. Consent Guard utilizes a cascading execution pipeline to ensure classification latency stays low while maintaining auditability.
+This project uses categories aligned to **India’s Central Consumer Protection Authority (CCPA) 2023 dark-pattern guidelines** for commerce messaging checks.
 
-```mermaid
-graph TD
-    classDef agent stroke:#38BDF8,stroke-width:2px,fill:#0B1120,color:#fff;
-    classDef guard stroke:#FCD34D,stroke-width:2px,fill:#1A1608,color:#FCD34D;
-    classDef safe stroke:#10B981,stroke-width:2px,fill:#022C22,color:#10B981;
-    classDef held stroke:#EF4444,stroke-width:2px,fill:#450A0A,color:#EF4444;
+Scope in this prototype:
+- false_urgency
+- confirm_shaming
+- forced_continuity
+- drip_pricing
+- basket_sneaking
 
-    A[Merchant AI Agent]:::agent -->|Message Emit| B(Regex Pre-Filter)
-    
-    B -->|Urgency Detected| C{Deterministic Allowlist}
-    B -->|No Urgency| D(LLM Classifier)
+---
 
-    C -->|Real DB Mandate Found| E[Clear & Pass]:::safe
-    C -->|No Date Found| F[Flag: False Urgency]:::held
-    
-    D -->|Clean| E
-    D -->|Manipulative Text| G[Flag: Taxonomy Violation]:::held
-    
-    F --> H[(SQLite Audit Ledger)]
-    G --> H
-    
-    H -->|SSE Push| I[Human Auditor Dashboard]
+## 3) How it plugs into merchant/payment flow
+
+```text
+Merchant AI Agent
+   -> Consent Guard /api/intercept
+      -> prefilter (fast urgency patterns)
+      -> allowlist check for real deadlines
+      -> LLM classifier for nuanced categories
+      -> action: sent | held
+      -> audit record (JSONL + SQLite)
+   -> if held: human reviewer approves/rejects in dashboard
 ```
 
-### Technical Highlights
-1. **True Server-Sent Events (SSE)**: The backend FastAPI maintains active `asyncio.Queue` channels to the Next.js React UI. Once a classification decision is available it is pushed to auditors via SSE.
-2. **Immutable SQLite + SQLAlchemy**: Every decision is written through strict SQLAlchemy ORMs to an on-disk SQLite database for auditability.
-3. **Fail-Closed Safeties**: If an external model API fails, the message is flagged with `CLASSIFIER_ERROR` and held for human review.
+---
+
+## 4) Live demo flow (one-click)
+
+Frontend supports:
+- **Run guided demo** (injects a full trace),
+- **Simulate 1/2/3** quick messages,
+- reviewer controls (Approve / Reject),
+- **Export audit (.JSONL)** from backend.
+
+Demo assets for recording are in:
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/demo/VIDEO_NARRATION_SCRIPT.md`
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/demo/EXPECTED_OUTCOMES_CHECKLIST.md`
 
 ---
 
-## ⚖️ Taxonomy Mapping
+## 5) Measured outcomes (current repo artifacts)
 
-The engine executes deterministic parsing and LLM classification against five dark-pattern categories used in commerce compliance efforts:
+Generated artifacts:
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/eval/results.json`
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/eval/consent_guard_dataset_cleaned.json`
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/eval/latency_results.json`
 
-| Category Code | Execution Description | Handling Pipeline |
-| :--- | :--- | :--- |
-| `FALSE_URGENCY` | Manufacturing time pressure without an actual expiration. (e.g. "Expires in 5 minutes") | Caught by Pre-Filter & Allowlist |
-| `CONFIRM_SHAMING` | Wording rejection text to guilt the user. (e.g. "No thanks, I hate saving money") | Caught by LLM Engine |
-| `FORCED_CONTINUITY` | Asymmetric cancellation friction. | Caught by LLM Engine | 
-| `DRIP_PRICING` | Concealing mandatory service/tax fees until the final checkout screen. | Caught by LLM Engine |
-| `BASKET_SNEAKING` | Pre-selecting paid add-ons without explicit user opt-in. | Caught by LLM Engine |
+`eval/results.json` includes:
+- total/category counts,
+- confusion matrix (TP/FP/TN/FN),
+- precision/recall/F1/accuracy for deterministic prefilter+allowlist path.
 
-> Note: we use a CCPA-style taxonomy adapted for Indian commerce contexts; if you intend to map to a specific regulation (for example DPDP) add that reference here.
-
----
-
-## 🚀 Performance Notes
-
-**Deterministic layer (rule-based prefilter + allowlist, no LLM required):**
-Developer-run checks on a small sample of false_urgency examples used during development showed no detected errors; this was an internal developer test (n=30) and not a full, held-out evaluation. The full dataset and per-category counts are included in `consent_guard_dataset.json` and an evaluation reproduction script is in `eval/`.
-
-**LLM-classified categories (confirm_shaming, forced_continuity, drip_pricing, basket_sneaking):** These categories are implemented and unit-tested for prompt structure and parsing. A comprehensive holdout evaluation was not performed due to third-party API quota limits during development. See `eval/README.md` for reproduction steps.
-
-> Honest note: If any category shows low recall in your runs, document it in `eval/results.md` — we prefer transparency over unsupported claims.
+`eval/latency_results.json` includes:
+- mean/median/p95/p99/max latency for deterministic path.
 
 ---
 
-## ⚡ The Audit Control Interface (Frontend)
+## 6) Quick start
 
-The internal review dashboard is engineered for Compliance Officers tracking agent drift.
-- **Glassmorphic Focus:** Removed standard UI sidebars to prioritize the audit transcript.
-- **Inline Multi-Span Highlighting:** Case-insensitive regex injects redlines behind manipulated texts in real-time.
-- **Dynamic Action Telemetry:** The Metrics module compiles SQLite rows into dynamic bar charts displaying drift tendencies.
-
----
-
-## 💻 Quick Start
-
-### 1. Terminal A (Backend)
+### Backend (Terminal A)
 ```bash
-cd backend
+cd /home/runner/work/Consent-Gaurd/Consent-Gaurd/backend
 python -m venv venv
-# Windows
-venv\\Scripts\\activate
-# macOS / Linux
+# macOS/Linux
 source venv/bin/activate
+# Windows
+# venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env     # Add your Anthropic / OpenAI / Google AI keys as needed
-# Start the FastAPI server with uvicorn
-uvicorn backend.main:app --reload --port 8000
+cp .env.example .env
+uvicorn main:app --reload --port 8000
 ```
 
-### 2. Terminal B (Frontend)
+### Frontend (Terminal B)
 ```bash
-cd frontend
+cd /home/runner/work/Consent-Gaurd/Consent-Gaurd/frontend
 npm install
 npm run dev
 ```
 
-Dashboard: http://localhost:3000
-Backend API: http://localhost:8000
+Open:
+- Frontend: http://localhost:3000
+- Backend health: http://localhost:8000/
 
+---
 
-## Try asking
-- How does the allowlist check determine that a deadline is valid? (See backend/deadline_store.py)
-- Where is the audit ledger written and how can I export it? (See backend/models_db.py and backend/crud.py)
-- How do I reproduce the dataset counts and run the small developer checks? (See eval/README.md)
+## 7) Reproducible evaluation commands
+
+From repo root:
+```bash
+python eval/run_eval.py --input consent_guard_dataset.json --out eval/results.json --clean
+python eval/benchmark_latency.py --input consent_guard_dataset.json --out eval/latency_results.json --iterations 20
+```
+
+---
+
+## 8) Merchant integration example
+
+Run:
+```bash
+python scripts/merchant_agent_example.py --base-url http://localhost:8000/api
+```
+
+Walkthrough with expected output:
+- `/home/runner/work/Consent-Gaurd/Consent-Gaurd/scripts/README.md`
+
+---
+
+## 9) Security and safeguards in this version
+
+- Optional API key auth on intercept endpoint (`CONSENT_GUARD_API_KEY`)
+- Basic per-IP rate limit on intercept endpoint (`RATE_LIMIT_MAX_REQUESTS`, `RATE_LIMIT_WINDOW_SECONDS`)
+- Fail-closed classifier behavior (`classifier_error` leads to held action)
+
+---
+
+## 10) Known limitations
+
+- LLM quality metrics are not auto-generated in CI (API-key dependent and cost-limited).
+- Rate limiting is in-memory (single-instance demo), not distributed.
+- JSONL audit log is append-only by application behavior, not cryptographically tamper-proof.
+
+---
+
+## 11) Production hardening path
+
+1. Distributed rate limiter (Redis) and authenticated service-to-service calls.
+2. Signed/tamper-evident audit records and long-term archival.
+3. Provider-independent LLM eval harness with scheduled holdout runs.
+4. Policy/config management UI for compliance teams.
+
+---
+
+## 12) CI
+
+Workflow: `/home/runner/work/Consent-Gaurd/Consent-Gaurd/.github/workflows/ci.yml`
+
+Runs:
+- backend tests,
+- deterministic eval script,
+- deterministic latency benchmark,
+- frontend production build.

@@ -2,8 +2,8 @@
 Data models for Consent Guard.
 
 These Pydantic models define the core data structures used throughout
-the detection pipeline. Every model is designed around the CCPA
-dark-pattern taxonomy — five categories, no more — and the invariant
+the detection pipeline. Every model is designed around the India CCPA
+2023 dark-pattern taxonomy — five categories, no more — and the invariant
 that every classification decision must be logged before any
 side-effecting action occurs.
 """
@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field
 
 class DarkPatternCategory(str, Enum):
     """
-    The five CCPA dark-pattern categories this system detects.
+    The five India CCPA 2023 dark-pattern categories this system detects.
 
     Why only five: the PRD explicitly scopes to the CCPA taxonomy.
     Adding categories beyond these would be scope creep with no

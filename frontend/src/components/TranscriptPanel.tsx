@@ -69,7 +69,7 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
     <div className="panel transcript-area">
       {messages.length === 0 && !loading && (
         <div style={{ padding: 'var(--space-8)' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', margin: '0 0 var(--space-2) 0', fontSize: 'var(--text-lg)' }}>🚀 Evaluator's Demo Guide</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', margin: '0 0 var(--space-2) 0', fontSize: 'var(--text-lg)' }}>Evaluator Demo Guide</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-base)' }}>
             To test the Consent Guard compliance firewall, paste these exact phrases into the terminal below:
           </p>
