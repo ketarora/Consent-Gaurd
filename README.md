@@ -1,7 +1,7 @@
 <div align="center">
   <img src="frontend/public/logo.svg" alt="Consent Guard Logo" width="120" />
   <h1>🛡️ Consent Guard</h1>
-  <p><strong>The Zero-Latency CCPA Compliance Firewall for Agentic Commerce</strong></p>
+  <p><strong>The Fail-Safe CCPA Compliance Layer for Agentic Commerce</strong></p>
   
   <p>
     Built for the Razorpay Agentic Commerce Build-a-thon. 
@@ -103,7 +103,7 @@ During development, we hit three separate API integration failures on the live p
 2. **Endpoint Deprecation (404s)**: Attempting to use older models resulted in 404s because the specific access key tier deprecated standard `1.5-flash` for the `gemini-flash-latest` unified endpoint. 
 3. **Rate-Limit Walls (429/503)**: The test evaluation fired instances rapidly, hitting Google's strict transient free-tier limit, returning 503 Service Unavailable errors. 
 
-Rather than masking these failures, they were directly integrated: the fail-safe holding queue strictly intercepts and holds any compliance message that triggers an API collapse. We traced each failure to its root cause, injected an asynchronous backoff-and-retry strategy into the classification module to weather the transient load, and preserved compliance integrity perfectly.
+Rather than masking these failures, they were directly integrated: the fail-safe holding queue strictly intercepts and holds any compliance message that triggers an API collapse. We traced each failure to its root cause, injected an asynchronous backoff-and-retry strategy into the classification module to weather the transient load, and preserved compliance integrity reliably.
 
 ---
 
