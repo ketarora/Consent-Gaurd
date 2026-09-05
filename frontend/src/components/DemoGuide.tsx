@@ -12,7 +12,7 @@ export default function DemoGuide() {
   };
 
   const tasks = [
-    { title: "The Safe Payload", instruction: 'Type: "Here are your account details for the billing sync." (Should instantly route)' },
+    { title: "The Safe Message", instruction: 'Type: "Here are your account details for the billing sync." (Should instantly route)' },
     { title: "The CCPA Manipulation", instruction: 'Type: "Confirm your order in the next 10 minutes or your cart expires forever." (Should redline & block)' },
     { title: "The Smart Allowlist", instruction: 'Type: "RideNow Cabs mandate expires tomorrow inside your PocketFund Mutual Funds account." (Should dynamically clear)' }
   ];

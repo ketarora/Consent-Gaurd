@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 
 import TopBar from '@/components/TopBar';
 import TranscriptPanel from '@/components/TranscriptPanel';
@@ -109,13 +110,13 @@ export default function ConsentGuardApp() {
 
   const handleApprove = async (id: string) => {
     await approveMessage(id);
-    showToast("Action Registered: Payload Forwarded to Extranet safely.", "success");
+    showToast("Action registered: Message forwarded to destination safely.", "success");
     await refreshState();
   };
 
   const handleReject = async (id: string) => {
     await rejectMessage(id);
-    showToast("Action Registered: Payload Blocked & Compliance Rewrite injected.", "error");
+    showToast("Action registered: Message blocked — compliance rewrite suggested.", "error");
     await refreshState();
   };
 

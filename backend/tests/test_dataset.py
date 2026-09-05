@@ -13,7 +13,8 @@ your README — reporting only the tuning-set number after you've tuned
 against it is the "looks good on my own test set" trap, not a real
 metric.
 
-Requires a real ANTHROPIC_API_KEY to produce real numbers (the LLM
+Requires a real LLM API key (GEMINI_API_KEY, OPENAI_API_KEY, or
+ANTHROPIC_API_KEY) to produce real numbers (the LLM
 classifier handles 4 of the 5 categories). Without a key, this test
 SKIPS with a clear message rather than failing — so CI without
 credentials doesn't block on it, but running it locally with a real key
@@ -37,10 +38,11 @@ _DATASET_PATH = Path(__file__).parent.parent.parent / "consent_guard_dataset.jso
 _HOLDOUT_SIZE = 20  # Last N messages in the file are never used for tuning.
 
 pytestmark = pytest.mark.skipif(
-    not os.environ.get("ANTHROPIC_API_KEY"),
+    not (os.environ.get("GEMINI_API_KEY") or os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")),
     reason=(
-        "ANTHROPIC_API_KEY not set — skipping real classifier evaluation. "
-        "Set the key and re-run to produce real precision/recall numbers; "
+        "No LLM API key set (GEMINI_API_KEY / OPENAI_API_KEY / ANTHROPIC_API_KEY) — "
+        "skipping real classifier evaluation. "
+        "Set a key and re-run to produce real precision/recall numbers; "
         "these numbers are the central credibility claim of the pitch and "
         "must come from an actual run, not be estimated or assumed."
     ),

@@ -56,7 +56,7 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
       <input
         className="input-prompt"
         type="text"
-        placeholder="Inject intercept message into eval stream..."
+        placeholder="Enter message to evaluate..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
         disabled={disabled || sending}

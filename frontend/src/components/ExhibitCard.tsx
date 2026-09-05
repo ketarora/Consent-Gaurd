@@ -8,11 +8,11 @@ interface ExhibitCardProps {
 }
 
 export default function ExhibitCard({ onDismiss }: ExhibitCardProps) {
-  // A raw JSON payload visualization wrapper
+  // A raw JSON message visualization wrapper
   const payloadString = `{
   "agent_id": "demo-agent-01",
   "intent": "collect_mandate",
-  "payload": "Hi there! I created a UPI mandate for your SIP. Please authorise it, it expires in 2 hours!",
+  "message": "Hi there! I created a UPI mandate for your SIP. Please authorise it, it expires in 2 hours!",
   "timestamp": "${new Date().toISOString()}"
 }`;
 
@@ -49,7 +49,7 @@ export default function ExhibitCard({ onDismiss }: ExhibitCardProps) {
           </p>
         </div>
 
-        {/* Technical JSON Payload view */}
+        {/* Technical JSON Message view */}
         <div style={{ padding: 'var(--space-6) var(--space-8)', borderTop: '1px solid var(--border-subtle)' }}>
           <div className="evidence-title">
             INTERCEPTED EXFILTRATION (EXHIBIT A)

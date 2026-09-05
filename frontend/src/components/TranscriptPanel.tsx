@@ -76,7 +76,7 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
             <div style={{ background: 'var(--bg-surface)', padding: 'var(--space-4)', borderRadius: 'var(--rad-lg)', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--accent-teal)', marginBottom: 'var(--space-1)' }}>TEST 1: THE SAFE PAYLOAD</div>
+              <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--accent-teal)', marginBottom: 'var(--space-1)' }}>TEST 1: THE SAFE MESSAGE</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>
                 "Here are your account details for the billing sync."
               </div>
