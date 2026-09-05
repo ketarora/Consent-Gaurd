@@ -6,33 +6,38 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface MessageInputProps {
   onSend: (content: string) => Promise<void>;
   disabled?: boolean;
+  quickMessages?: string[];
 }
 
-export default function MessageInput({ onSend, disabled }: MessageInputProps) {
+export default function MessageInput({ onSend, disabled, quickMessages = [] }: MessageInputProps) {
   const [content, setContent] = useState('');
   const [sending, setSending] = useState(false);
   const [microState, setMicroState] = useState<'idle' | 'parsing' | 'evaluating'>('idle');
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const trimmed = content.trim();
-    if (!trimmed || sending) return;
-
+  const sendMessage = async (message: string, clearInput: boolean) => {
     setSending(true);
     setMicroState('parsing');
-    
-    // Simulate complex pipeline micro-states before resolution
+
     setTimeout(() => setMicroState('evaluating'), 400);
 
     try {
-      await onSend(trimmed);
-      setContent('');
+      await onSend(message);
+      if (clearInput) {
+        setContent('');
+      }
     } catch (err) {
       console.error('Send failed:', err);
     } finally {
       setSending(false);
       setMicroState('idle');
     }
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const trimmed = content.trim();
+    if (!trimmed || sending) return;
+    await sendMessage(trimmed, true);
   };
 
   const canSend = content.trim() && !sending && !disabled;
@@ -44,7 +49,25 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
       transition={{ delay: 0.2, duration: 0.4 }}
       onSubmit={handleSubmit}
       className={`input-prompt-wrapper ${sending ? 'processing' : ''}`}
+      style={{ position: 'relative' }}
     >
+      {quickMessages.length > 0 && (
+        <div style={{ position: 'absolute', top: '-36px', left: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {quickMessages.map((message, idx) => (
+            <button
+              key={`${message}-${idx}`}
+              type="button"
+              className="btn-secondary"
+              onClick={() => void sendMessage(message, false)}
+              disabled={disabled || sending}
+              style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '999px' }}
+            >
+              Simulate {idx + 1}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="prompt-prefix" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="4 17 10 11 4 5"></polyline>

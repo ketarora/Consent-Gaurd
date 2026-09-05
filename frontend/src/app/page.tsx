@@ -24,6 +24,13 @@ import {
   subscribeToEvents,
 } from '@/lib/api';
 import DemoGuide from '@/components/DemoGuide';
+import OnboardingModal from '@/components/OnboardingModal';
+
+const DEMO_MESSAGES = [
+  "Here are your account details for the billing sync.",
+  "Confirm your order in the next 10 minutes or your cart expires forever.",
+  "RideNow Cabs mandate expires tomorrow due to outstanding PocketFund Mutual Funds sync.",
+];
 
 export default function ConsentGuardApp() {
   const [booting, setBooting] = useState(true);
@@ -38,6 +45,7 @@ export default function ConsentGuardApp() {
   const [replayLoading, setReplayLoading] = useState(false);
   
   const [showSummary, setShowSummary] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Toast System
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
@@ -54,6 +62,14 @@ export default function ConsentGuardApp() {
     const t3 = setTimeout(() => setProgress(100), 1200);
     const t4 = setTimeout(() => setBooting(false), 2000);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hasSeenOnboarding = window.localStorage.getItem('consent-guard:onboarding:v1');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
   }, []);
 
   // Real-time Event Subscription (SSE)
@@ -126,12 +142,21 @@ export default function ConsentGuardApp() {
     setLogs([]);
   };
 
+  const closeOnboarding = () => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('consent-guard:onboarding:v1', 'seen');
+    }
+    setShowOnboarding(false);
+  };
+
   const handleReplay = async () => {
     setReplayLoading(true);
     setPhase('app');
     try {
       await handleReset();
-      await interceptMessage("Hi there! I created a UPI mandate for your SIP. Please authorise it, it expires in 2 hours!");
+      for (const message of DEMO_MESSAGES) {
+        await interceptMessage(message);
+      }
       await refreshState();
     } finally {
       setReplayLoading(false);
@@ -175,7 +200,11 @@ export default function ConsentGuardApp() {
                 onReject={handleReject} 
                 loading={loading}
               />
-              <MessageInput onSend={handleSend} disabled={loading || phase === 'landing'} />
+              <MessageInput
+                onSend={handleSend}
+                disabled={loading || phase === 'landing'}
+                quickMessages={DEMO_MESSAGES}
+              />
             </div>
 
             <div style={{ height: 'calc(100% - 72px)' }}>
@@ -192,6 +221,12 @@ export default function ConsentGuardApp() {
       </AnimatePresence>
 
       {phase === 'app' && <DemoGuide onSimulate={handleReplay} replayLoading={replayLoading} />}
+      <OnboardingModal
+        open={showOnboarding}
+        onClose={closeOnboarding}
+        onRunDemo={handleReplay}
+        runningDemo={replayLoading}
+      />
 
       {/* Global Toast Overlay */}
       <AnimatePresence>
