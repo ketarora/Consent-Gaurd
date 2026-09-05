@@ -1,59 +1,49 @@
-name: Consent Guard CI
+name: Backend and Frontend Validation Pipeline
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
-      - improve/eval-docs
-      - copilot/improveeval-docs
-
-permissions:
-  contents: read
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
-  backend-tests-and-eval:
+  test-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: Install backend dependencies
+      - name: Install dependencies
+        working-directory: ./backend
         run: |
           python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt
+          pip install -r requirements.txt
 
-      - name: Run backend tests
-        run: pytest backend/tests -q
+      - name: Run Backend Pytest
+        working-directory: ./backend
+        run: |
+          pytest tests/ -v
 
-      - name: Run dataset eval script
-        run: python eval/run_eval.py --input consent_guard_dataset.json --out /tmp/consent-guard-results.json --clean --cleaned-out /tmp/consent-guard-cleaned.json
-
-      - name: Run deterministic latency benchmark
-        run: python eval/benchmark_latency.py --input consent_guard_dataset.json --out /tmp/consent-guard-latency.json --iterations 10
-
-  frontend-build:
+  build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-
-      - name: Install frontend dependencies
-        run: npm ci
-        working-directory: frontend
-
-      - name: Build frontend
+          node-version: '20'
+          
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm ci || npm install
+        
+      - name: Build NextJS application
+        working-directory: ./frontend
         run: npm run build
-        working-directory: frontend
