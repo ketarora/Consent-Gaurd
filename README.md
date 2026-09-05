@@ -21,7 +21,7 @@
 </div>
 
 ---
-
+Live Link : - https://consent-gaurd.vercel.app/
 ## 🚨 The Agentic Dilemma
 
 At Razorpay's own FTX'26 launch, an Agent Studio bot aggressively pressured CEO Harshil Mathur into a purchase using a false-urgency dark pattern — live on stage, as publicly reported by MediaNama. 
