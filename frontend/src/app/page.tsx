@@ -27,25 +27,26 @@ import DemoGuide from '@/components/DemoGuide';
 import OnboardingModal from '@/components/OnboardingModal';
 
 const DEMO_MESSAGES = [
-  "Here are your account details for the billing sync.",
-  "Confirm your order in the next 10 minutes or your cart expires forever.",
-  "RideNow Cabs mandate expires tomorrow due to outstanding PocketFund Mutual Funds sync.",
+  "Hurry! Only 3 left — this exclusive rate expires in 2 hours, don't miss out.",
+  "This is your scheduled renewal notice for RideNow Cabs, due on 15 Sept, sent as required 24 hours in advance.",
+  "Keep my Premium plan, or click here if you hate saving money.",
+  "We've added travel insurance (₹149) to your checkout for you.",
 ];
 
 export default function ConsentGuardApp() {
   const [booting, setBooting] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  const [phase, setPhase] = useState<'landing' | 'app'>('landing');
+  const [phase, setPhase] = useState<'landing' | 'onboarding' | 'app'>('landing');
   const [view, setView] = useState<'live' | 'log'>('live');
   
   const [messages, setMessages] = useState<MessageWithDecision[]>([]);
   const [logs, setLogs] = useState<AuditLogEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [replayLoading, setReplayLoading] = useState(false);
+  const [demoSkipped, setDemoSkipped] = useState(false);
   
   const [showSummary, setShowSummary] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Toast System
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
@@ -64,14 +65,6 @@ export default function ConsentGuardApp() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const hasSeenOnboarding = window.localStorage.getItem('consent-guard:onboarding:v1');
-    if (!hasSeenOnboarding) {
-      setShowOnboarding(true);
-    }
-  }, []);
-
   // Real-time Event Subscription (SSE)
   useEffect(() => {
     if (phase !== 'app') return;
@@ -83,7 +76,7 @@ export default function ConsentGuardApp() {
         const [msgs, audit] = await Promise.all([getMessages(), getAuditLog(100)]);
         if (isMounted) {
           setMessages(msgs.reverse());
-          setLogs(audit.reverse());
+          setLogs([...audit]);
         }
       } catch (err) {
         console.error('Failed to fetch state:', err);
@@ -119,21 +112,31 @@ export default function ConsentGuardApp() {
     try {
       await interceptMessage(content);
       await refreshState();
+    } catch (err) {
+      showToast("Failed to intercept message.", "error");
     } finally {
       setLoading(false);
     }
   };
 
   const handleApprove = async (id: string) => {
-    await approveMessage(id);
-    showToast("Action registered: Message forwarded to destination safely.", "success");
-    await refreshState();
+    try {
+      await approveMessage(id);
+      showToast("Action registered: Message forwarded to destination safely.", "success");
+      await refreshState();
+    } catch (err) {
+      showToast("Failed to approve message.", "error");
+    }
   };
 
   const handleReject = async (id: string) => {
-    await rejectMessage(id);
-    showToast("Action registered: Message blocked — compliance rewrite suggested.", "error");
-    await refreshState();
+    try {
+      await rejectMessage(id);
+      showToast("Action registered: Message blocked — compliance rewrite suggested.", "error");
+      await refreshState();
+    } catch (err) {
+      showToast("Failed to reject message.", "error");
+    }
   };
 
   const handleReset = async () => {
@@ -142,11 +145,13 @@ export default function ConsentGuardApp() {
     setLogs([]);
   };
 
+  const handleSkipDemo = () => {
+    setDemoSkipped(true);
+    setPhase('app');
+  };
+
   const closeOnboarding = () => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('consent-guard:onboarding:v1', 'seen');
-    }
-    setShowOnboarding(false);
+    setPhase('app');
   };
 
   const handleReplay = async () => {
@@ -180,14 +185,14 @@ export default function ConsentGuardApp() {
         onReset={handleReset} 
         onReplay={handleReplay}
         onShowSummary={() => setShowSummary(true)}
-        onGuide={() => setShowOnboarding(true)}
+        onGuide={() => setPhase('onboarding')}
         replayLoading={replayLoading}
       />
 
       <main style={{ flex: 1, position: 'relative' }}>
         <AnimatePresence>
-          {phase === 'landing' && (
-            <ExhibitCard onDismiss={() => setPhase('app')} />
+          {phase === 'landing' && !booting && (
+            <ExhibitCard onDismiss={() => setPhase('onboarding')} />
           )}
         </AnimatePresence>
 
@@ -221,10 +226,11 @@ export default function ConsentGuardApp() {
         )}
       </AnimatePresence>
 
-      {phase === 'app' && <DemoGuide onSimulate={handleReplay} replayLoading={replayLoading} />}
+      {phase === 'app' && !demoSkipped && <DemoGuide onSimulate={handleReplay} replayLoading={replayLoading} />}
       <OnboardingModal
-        open={showOnboarding}
+        open={phase === 'onboarding'}
         onClose={closeOnboarding}
+        onSkip={handleSkipDemo}
         onRunDemo={handleReplay}
         runningDemo={replayLoading}
       />

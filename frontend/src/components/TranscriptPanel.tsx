@@ -46,11 +46,11 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
         if (isApproved || matchedFlag.cleared_by_allowlist) badgeClass = 'flag-teal';
 
         const categoryToCitation: Record<string, string> = {
-          'false_urgency': 'CCPA 2023 § 5(1) · False Urgency',
-          'basket_sneaking': 'CCPA 2023 § 5(6) · Basket Sneaking',
-          'confirm_shaming': 'CCPA 2023 § 5(3) · Confirm Shaming',
-          'forced_continuity': 'CCPA 2023 § 5(2) · Forced Continuity',
-          'drip_pricing': 'CCPA 2023 § 5(4) · Drip Pricing'
+          'false_urgency': 'CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 1 — False Urgency',
+          'basket_sneaking': 'CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 2 — Basket Sneaking',
+          'confirm_shaming': 'CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 3 — Confirm Shaming',
+          'subscription_trap': 'CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 5 — Subscription Trap',
+          'drip_pricing': 'CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 8 — Drip Pricing'
         };
         const citation = categoryToCitation[matchedFlag.category] || matchedFlag.category.replace(/_/g, ' ').toUpperCase();
 
@@ -126,8 +126,6 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
         
         return (
           <div key={msg.id} className="msg-entry">
-            {/* Avatars Removed per Forensic Audit (Severity 5) — Enforcing strict compliance text presentation */}
-
             <div className="msg-content-block">
               <div className="msg-meta">
                 <span className="msg-agent-tag">{isAgent ? `@${msg.agent_id}` : 'Human Operator'}</span>

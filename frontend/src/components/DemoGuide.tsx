@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface DemoGuideProps {
@@ -21,6 +21,13 @@ export default function DemoGuide({ onSimulate, replayLoading }: DemoGuideProps)
     { title: "The Policy Deviation", instruction: 'Type: "Confirm your order in the next 10 minutes or your cart expires forever." (Should redline & block)' },
     { title: "The Smart Allowlist", instruction: 'Type: "RideNow Cabs mandate expires tomorrow inside your PocketFund Mutual Funds account." (Should dynamically clear)' }
   ];
+
+  useEffect(() => {
+    if (Object.values(completed).filter(Boolean).length === tasks.length && isOpen) {
+      const timer = setTimeout(() => setIsOpen(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [completed, isOpen, tasks.length]);
 
   return (
     <div style={{ position: 'fixed', bottom: '24px', left: '24px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -61,24 +68,37 @@ export default function DemoGuide({ onSimulate, replayLoading }: DemoGuideProps)
                 {replayLoading ? 'Running guided trace...' : 'Run guided demo'}
               </button>
 
+              <AnimatePresence>
+              {Object.values(completed).filter(Boolean).length === tasks.length && (
+                  <motion.div initial={{opacity:0}} animate={{opacity:1}} style={{fontSize: 'var(--text-sm)', color: 'var(--accent-teal)', fontWeight: 600, textAlign: 'center', padding: 'var(--space-2) 0'}}>
+                    Demo successfully completed! ✅
+                  </motion.div>
+              )}
               {tasks.map((task, idx) => {
                 const isDone = completed[idx];
+                if (isDone) return null;
                 return (
-                  <div key={idx} style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start' }} onClick={() => toggleTask(idx)}>
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0, overflow: 'hidden', padding: 0 }}
+                    style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start' }} 
+                    onClick={() => toggleTask(idx)}
+                  >
                      <div style={{
-                       width: '18px', height: '18px', borderRadius: '4px', border: `1px solid ${isDone ? 'var(--accent-teal)' : 'var(--border-strong)'}`, 
-                       background: isDone ? 'var(--accent-teal)' : 'transparent',
-                       cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px'
+                       width: '18px', height: '18px', borderRadius: '4px', border: `1px solid var(--border-strong)`, 
+                       background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px'
                      }}>
-                       {isDone && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3"><polyline points="20 6 9 17 4 12"></polyline></svg>}
                      </div>
-                     <div style={{ cursor: 'pointer', opacity: isDone ? 0.5 : 1, transition: 'opacity 0.2s', userSelect: 'none' }}>
-                        <div style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 'var(--space-1)', textDecoration: isDone ? 'line-through' : 'none' }}>{task.title}</div>
+                     <div style={{ cursor: 'pointer', userSelect: 'none' }}>
+                        <div style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 'var(--space-1)' }}>{task.title}</div>
                         <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', lineHeight: 1.4 }}>{task.instruction}</div>
                      </div>
-                  </div>
+                  </motion.div>
                 )
               })}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}

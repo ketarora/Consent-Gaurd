@@ -1,0 +1,12 @@
+{
+  "dataset_size": 150,
+  "total_samples": 3000,
+  "iterations": 20,
+  "latency_ms": {
+    "mean": 0.0402,
+    "median": 0.0352,
+    "p95": 0.0793,
+    "p99": 0.1029,
+    "max": 0.2752
+  }
+}

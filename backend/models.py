@@ -29,7 +29,7 @@ class DarkPatternCategory(str, Enum):
     """
     FALSE_URGENCY = "false_urgency"
     CONFIRM_SHAMING = "confirm_shaming"
-    FORCED_CONTINUITY = "forced_continuity"
+    SUBSCRIPTION_TRAP = "subscription_trap"
     DRIP_PRICING = "drip_pricing"
     BASKET_SNEAKING = "basket_sneaking"
     # Special category for classifier failures — fail-safe, not fail-open.
@@ -37,11 +37,11 @@ class DarkPatternCategory(str, Enum):
 
 
 CCPA_CITATIONS = {
-    DarkPatternCategory.FALSE_URGENCY: "CCPA Guidelines 2023, Sec 5(1) — Creating false sense of scarcity/urgency",
-    DarkPatternCategory.CONFIRM_SHAMING: "CCPA Guidelines 2023, Sec 5(3) — Guilt-tripping consumer into choice",
-    DarkPatternCategory.FORCED_CONTINUITY: "CCPA Guidelines 2023, Sec 5(4) — Asymmetric cancellation friction",
-    DarkPatternCategory.DRIP_PRICING: "CCPA Guidelines 2023, Sec 5(7) — Concealing mandatory costs until checkout",
-    DarkPatternCategory.BASKET_SNEAKING: "CCPA Guidelines 2023, Sec 5(9) — Pre-selecting paid add-ons without consent",
+    DarkPatternCategory.FALSE_URGENCY: "CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 1 — False Urgency",
+    DarkPatternCategory.BASKET_SNEAKING: "CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 2 — Basket Sneaking",
+    DarkPatternCategory.CONFIRM_SHAMING: "CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 3 — Confirm Shaming",
+    DarkPatternCategory.SUBSCRIPTION_TRAP: "CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 5 — Subscription Trap",
+    DarkPatternCategory.DRIP_PRICING: "CCPA Dark Patterns Guidelines 2023, Annexure 1, Cl. 8 — Drip Pricing",
     DarkPatternCategory.CLASSIFIER_ERROR: "System Exception — Automatic Compliance Hold",
 }
 

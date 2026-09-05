@@ -97,36 +97,34 @@ _DEADLINE_RECORDS: dict[str, DeadlineRecord] = {
 }
 
 
-def find_matching_deadline(message_text: str) -> Optional[DeadlineRecord]:
-    """
-    Search for a real-deadline record that matches the message content.
+import re
+from datetime import date, datetime
 
-    Matching strategy: check if the service name from any deadline record
-    appears in the message text (case-insensitive). This is intentionally
-    simple — in production, you'd match against structured metadata
-    attached to the message (item_id, mandate_id), not free text.
+_DATE_RE = re.compile(r'(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)', re.I)
 
-    Why free-text matching for the demo: the synthetic dataset uses
-    service names in the message body (e.g., "PocketFund Mutual Funds"),
-    and the demo needs to show the allowlist clearing a real-deadline
-    message without requiring structured metadata the dataset doesn't
-    have.
-    """
+def find_matching_deadline(message_text: str, today: date | None = None) -> Optional[DeadlineRecord]:
+    today = today or date.today()
     text_lower = message_text.lower()
+    claimed = _DATE_RE.search(message_text)
 
     for record in _DEADLINE_RECORDS.values():
-        if record.service_name.lower() in text_lower:
-            # Also check for date/deadline-related language to avoid
-            # false matches on service names that appear in non-deadline
-            # contexts.
-            deadline_indicators = [
-                "renewal", "renew", "mandate", "due on", "due date",
-                "grace period", "expires on", "scheduled",
-                "authorization", "24 hours in advance",
-            ]
-            if any(indicator in text_lower for indicator in deadline_indicators):
-                return record
-
+        if record.service_name.lower() not in text_lower:
+            continue
+        deadline = datetime.fromisoformat(record.deadline_date).date()
+        if deadline < today:                       # stale record cannot clear anything
+            continue
+        if claimed:                                # message asserts a date — it must match the record
+            day, mon = int(claimed.group(1)), claimed.group(2)[:3].title()
+            rec_day, rec_mon = deadline.day, deadline.strftime("%b")
+            if (day, mon) != (rec_day, rec_mon):
+                continue
+        elif claimed is None:
+            urgency_keywords = ["hurry", "last chance", "act now", "midnight", "hours", "seats left", "slots left", "gone forever", "disappears"]
+            if any(uk in text_lower for uk in urgency_keywords):
+                continue
+            if not any(i in text_lower for i in ("renewal", "mandate", "grace period", "authorization")):
+                continue
+        return record
     return None
 
 

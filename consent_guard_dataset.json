@@ -4,7 +4,7 @@
     "categories": [
         "false_urgency",
         "confirm_shaming",
-        "forced_continuity",
+        "subscription_trap",
         "drip_pricing",
         "basket_sneaking"
     ],
@@ -16,7 +16,7 @@
         "basket_sneaking": 30,
         "drip_pricing": 30,
         "false_urgency": 30,
-        "forced_continuity": 30
+        "subscription_trap": 30
     },
     "messages": [
         {
@@ -141,14 +141,14 @@
         {
             "id": "msg_018",
             "text": "You're subscribed to Nimbus Cloud Storage. Cancel anytime, no calls or emails needed \u2014 just tap 'Cancel Subscription' in the app.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
         {
             "id": "msg_019",
             "text": "Your free trial for RideNow Cabs continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -197,7 +197,7 @@
         {
             "id": "msg_026",
             "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -232,7 +232,7 @@
         {
             "id": "msg_031",
             "text": "You're subscribed to PocketFund Mutual Funds. Cancel anytime, no calls or emails needed \u2014 just tap 'Cancel Subscription' in the app.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -337,7 +337,7 @@
         {
             "id": "msg_046",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -407,7 +407,7 @@
         {
             "id": "msg_056",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -435,14 +435,14 @@
         {
             "id": "msg_060",
             "text": "Your free trial for CloudNine Insurance continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
         {
             "id": "msg_061",
             "text": "Your ride credits pack will renew on schedule. You can cancel anytime from Settings > Manage Subscription \u2014 it takes effect immediately.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -463,7 +463,7 @@
         {
             "id": "msg_064",
             "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -491,7 +491,7 @@
         {
             "id": "msg_068",
             "text": "You're subscribed to StreamPlex. Cancel anytime, no calls or emails needed \u2014 just tap 'Cancel Subscription' in the app.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -540,7 +540,7 @@
         {
             "id": "msg_075",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -568,7 +568,7 @@
         {
             "id": "msg_079",
             "text": "Your free trial for Zylo Fitness continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -582,7 +582,7 @@
         {
             "id": "msg_081",
             "text": "Your free trial for StreamPlex continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -610,7 +610,7 @@
         {
             "id": "msg_085",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -624,7 +624,7 @@
         {
             "id": "msg_087",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -673,7 +673,7 @@
         {
             "id": "msg_094",
             "text": "Your free trial for StreamPlex continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -694,7 +694,7 @@
         {
             "id": "msg_097",
             "text": "We've renewed your monthly refill for you. To cancel, please write in to support and allow 5-7 business days for processing.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -764,14 +764,14 @@
         {
             "id": "msg_107",
             "text": "You're subscribed to PocketFund Mutual Funds. Cancel anytime, no calls or emails needed \u2014 just tap 'Cancel Subscription' in the app.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
         {
             "id": "msg_108",
             "text": "Your SIP installment will renew on schedule. You can cancel anytime from Settings > Manage Subscription \u2014 it takes effect immediately.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -799,7 +799,7 @@
         {
             "id": "msg_112",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -813,7 +813,7 @@
         {
             "id": "msg_114",
             "text": "You're subscribed to Bloom Skincare. Cancel anytime, no calls or emails needed \u2014 just tap 'Cancel Subscription' in the app.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -834,14 +834,14 @@
         {
             "id": "msg_117",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
         {
             "id": "msg_118",
             "text": "Your grocery box will renew on schedule. You can cancel anytime from Settings > Manage Subscription \u2014 it takes effect immediately.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -890,7 +890,7 @@
         {
             "id": "msg_125",
             "text": "Cancellation for QuickMeds Pharmacy is only available by mailing a signed request to our registered office.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -911,7 +911,7 @@
         {
             "id": "msg_128",
             "text": "Your free trial for RideNow Cabs continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -953,14 +953,14 @@
         {
             "id": "msg_134",
             "text": "Your free trial for Bloom Skincare continues automatically \u2014 to stop being charged, you'll need to call our support line during business hours.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
         {
             "id": "msg_135",
             "text": "Your subscription will keep renewing. There's no cancel button in the app \u2014 please email us to request cancellation.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -974,7 +974,7 @@
         {
             "id": "msg_137",
             "text": "Your monthly refill will renew on schedule. You can cancel anytime from Settings > Manage Subscription \u2014 it takes effect immediately.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },
@@ -988,7 +988,7 @@
         {
             "id": "msg_139",
             "text": "We've renewed your grocery box for you. To cancel, please write in to support and allow 5-7 business days for processing.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": true,
             "notes": "Cancellation path is deliberately obscured, slow, or disproportionately harder than sign-up."
         },
@@ -1051,7 +1051,7 @@
         {
             "id": "msg_148",
             "text": "Your Premium plan will renew on schedule. You can cancel anytime from Settings > Manage Subscription \u2014 it takes effect immediately.",
-            "category": "forced_continuity",
+            "category": "subscription_trap",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up \u2014 no manipulative friction."
         },

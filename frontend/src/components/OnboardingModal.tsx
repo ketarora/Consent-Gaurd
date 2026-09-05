@@ -6,11 +6,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 interface OnboardingModalProps {
   open: boolean;
   onClose: () => void;
+  onSkip: () => void;
   onRunDemo: () => Promise<void>;
   runningDemo: boolean;
 }
 
-export default function OnboardingModal({ open, onClose, onRunDemo, runningDemo }: OnboardingModalProps) {
+export default function OnboardingModal({ open, onClose, onSkip, onRunDemo, runningDemo }: OnboardingModalProps) {
   return (
     <AnimatePresence>
       {open && (
@@ -33,7 +34,7 @@ export default function OnboardingModal({ open, onClose, onRunDemo, runningDemo 
               <li>Use <strong>Simulate 1/2/3</strong> chips for one-off examples.</li>
             </ol>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-              <button className="btn-secondary" type="button" onClick={onClose}>
+              <button className="btn-secondary" type="button" onClick={onSkip}>
                 Skip for now
               </button>
               <button

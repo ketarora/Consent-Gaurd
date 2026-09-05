@@ -35,43 +35,6 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api")
 
 
-import time
-import os
-from fastapi import APIRouter, HTTPException, Depends, Header
-from fastapi.responses import StreamingResponse
-from sqlalchemy.orm import Session
-
-# In-memory token bucket for basic burst rate-limiting
-_rate_limits = {}
-
-def get_merchant_auth(x_api_key: str = Header(None, alias="X-API-Key")):
-    """Validates the standard merchant integration header."""
-    expected_key = os.environ.get("MERCHANT_API_KEY", "rzp_test_consent_123")
-    if not x_api_key or x_api_key != expected_key:
-        raise HTTPException(status_code=401, detail="Invalid or missing X-API-Key header")
-    return x_api_key
-
-def check_rate_limit(merchant_key: str):
-    """Enforces a basic 10 Req / second global per-key limit."""
-    now = time.time()
-    record = _rate_limits.get(merchant_key, {"count": 0, "reset_time": now + 1})
-    
-    if now > record["reset_time"]:
-        record = {"count": 1, "reset_time": now + 1}
-    else:
-        record["count"] += 1
-        if record["count"] > 10:
-            raise HTTPException(status_code=429, detail="Strict 10 req/s rate limit exceeded. Please try again later.")
-            
-    _rate_limits[merchant_key] = record
-
-
-@router.get("/stream")
-async def sse_stream():
-    """Server-Sent Events endpoint for real-time frontend updates."""
-    return StreamingResponse(sse_manager.subscribe(), media_type="text/event-stream")
-
-
 @router.post("/intercept")
 async def intercept_message(
     request: InterceptRequest,
@@ -223,7 +186,7 @@ async def download_audit_log() -> FileResponse:
 
 
 @router.post("/reset")
-async def reset_state(db: Session = Depends(get_db)) -> dict:
+async def reset_state(_: None = Depends(require_api_key), db: Session = Depends(get_db)) -> dict:
     clear_db(db)
     clear_log()  # Keep the JSONL audit trail and SQLite state in sync on demo reset.
     # Broadcast reset

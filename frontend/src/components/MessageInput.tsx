@@ -52,16 +52,16 @@ export default function MessageInput({ onSend, disabled, quickMessages = [] }: M
       style={{ position: 'relative' }}
     >
       <div style={{ position: 'absolute', top: '-42px', left: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <button type="button" className="preset-chip" onClick={() => void sendMessage("Confirm your order in the next 10 minutes or your cart expires forever.", false)} disabled={disabled || sending}>
-          <span className="chip-icon">🔴</span> Test 1: False Urgency (FTX'26)
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("Hurry! Only 3 left — this exclusive rate expires in 2 hours, don't miss out.", false)} disabled={disabled || sending}>
+          <span className="chip-icon">🔴</span> Test 1: False Urgency
         </button>
-        <button type="button" className="preset-chip" onClick={() => void sendMessage("Scheduled mandate renewal notice due tomorrow.", false)} disabled={disabled || sending}>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("This is your scheduled renewal notice for RideNow Cabs, due on 15 Sept, sent as required 24 hours in advance.", false)} disabled={disabled || sending}>
           <span className="chip-icon">🟢</span> Test 2: Legit Expiry (Allowlist Override)
         </button>
         <button type="button" className="preset-chip" onClick={() => void sendMessage("Keep my Premium plan, or click here if you hate saving money.", false)} disabled={disabled || sending}>
           <span className="chip-icon">🟡</span> Test 3: Confirm Shaming
         </button>
-        <button type="button" className="preset-chip" onClick={() => void sendMessage("We've added a travel insurance to your checkout for just 20 bucks.", false)} disabled={disabled || sending}>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("We've added travel insurance (₹149) to your checkout for you.", false)} disabled={disabled || sending}>
           <span className="chip-icon">🟣</span> Test 4: Basket Sneaking
         </button>
       </div>
@@ -83,7 +83,7 @@ export default function MessageInput({ onSend, disabled, quickMessages = [] }: M
         disabled={disabled || sending}
         autoComplete="off"
         spellCheck="false"
-        style={{ fontFamily: 'var(--font-mono)' }}
+        style={{ fontFamily: 'var(--font-mono)', paddingLeft: '140px' }}
       />
 
       {sending && (

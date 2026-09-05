@@ -27,7 +27,8 @@ export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSu
     >
       {/* Brand & Classifier Info */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        <div className="brand-mark">
+        <div className="brand-mark" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+          <img src="/logo.svg" alt="Consent Guard Logo" width="24" height="24" />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)', color: 'var(--text-primary)', letterSpacing: '-0.02em', borderBottom: '2px solid var(--accent-red)' }}>Consent Guard</span>
         </div>
 

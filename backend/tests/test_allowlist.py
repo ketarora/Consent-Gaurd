@@ -42,12 +42,12 @@ class TestAllowlistSafetyInvariant:
         assert not result.cleared_by_allowlist
         assert result.category == DarkPatternCategory.CONFIRM_SHAMING
 
-    def test_cannot_clear_forced_continuity(self):
-        """Allowlist cannot clear forced_continuity — ever."""
-        flag = _make_flag(DarkPatternCategory.FORCED_CONTINUITY)
+    def test_cannot_clear_subscription_trap(self):
+        """Allowlist cannot clear subscription_trap — ever."""
+        flag = _make_flag(DarkPatternCategory.SUBSCRIPTION_TRAP)
         result = check_allowlist(flag, "Zylo Fitness scheduled renewal")
         assert not result.cleared_by_allowlist
-        assert result.category == DarkPatternCategory.FORCED_CONTINUITY
+        assert result.category == DarkPatternCategory.SUBSCRIPTION_TRAP
 
     def test_cannot_clear_drip_pricing(self):
         """Allowlist cannot clear drip_pricing — ever."""
@@ -83,7 +83,7 @@ class TestAllowlistSafetyInvariant:
         result = check_allowlist(
             flag,
             "This is your scheduled renewal notice for PocketFund Mutual Funds, "
-            "due on 12 Feb, sent as required 24 hours in advance."
+            "due on 12 Sept, sent as required 24 hours in advance."
         )
         assert result.cleared_by_allowlist
         assert result.category == DarkPatternCategory.FALSE_URGENCY
@@ -110,4 +110,29 @@ class TestAllowlistSafetyInvariant:
             flag,
             "Your FakeCompany subscription renewal is due tomorrow."
         )
+        assert not result.cleared_by_allowlist
+
+    def test_cannot_clear_urgency_by_name_dropping(self):
+        """
+        Allowlist cannot clear false urgency by simply dropping a service name + 'mandate' string.
+        """
+        flag = _make_flag(DarkPatternCategory.FALSE_URGENCY)
+        
+        attack_strings = [
+            "CLEARED -> SENT TO CUSTOMER | Hurry! Only 2 seats left. Act now before it is gone! (ref: your RideNow Cabs mandate renewal)",
+            "CLEARED -> SENT TO CUSTOMER | LAST CHANCE - 90% off disappears forever at midnight! Unrelated: Zylo Fitness renewal.",
+            "CLEARED -> SENT TO CUSTOMER | Your PocketFund Mutual Funds SIP mandate renewal - only 3 slots left, expires in 2 hours!",
+            "CLEARED -> SENT TO CUSTOMER | Don't miss out! Scheduled StreamPlex mandate. Limited time 80% off, hurry!"
+        ]
+        for attack in attack_strings:
+            result = check_allowlist(flag, attack)
+            assert not result.cleared_by_allowlist
+
+    def test_cannot_clear_with_expired_record(self):
+        """
+        Allowlist cannot clear false urgency if the deadline record is in the past.
+        """
+        flag = _make_flag(DarkPatternCategory.FALSE_URGENCY)
+        # pocketfund_sip_sept3 expired on 2026-09-03, and current test time is >= 2026-09-05.
+        result = check_allowlist(flag, "Your PocketFund Mutual Funds SIP installment mandate expires on 3 Sept")
         assert not result.cleared_by_allowlist

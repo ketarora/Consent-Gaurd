@@ -1,0 +1,80 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-8.3.0, pluggy-1.5.0 -- C:\Users\User\Miniconda3\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\User\Downloads\Consent-Gaurd-copilot-improveeval-docs (1)\Consent-Gaurd-copilot-improveeval-docs\backend
+configfile: pytest.ini
+plugins: anyio-4.13.0, langsmith-0.10.5, asyncio-0.24.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, default_loop_scope=None
+collecting ... collected 45 items
+
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_confirm_shaming PASSED [  2%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_subscription_trap PASSED [  4%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_drip_pricing PASSED [  6%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_basket_sneaking PASSED [  8%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_classifier_error PASSED [ 11%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_clears_false_urgency_with_real_deadline FAILED [ 13%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_does_not_clear_false_urgency_without_deadline PASSED [ 15%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_does_not_clear_false_urgency_for_unknown_service PASSED [ 17%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_urgency_by_name_dropping FAILED [ 20%]
+backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_with_expired_record PASSED [ 22%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_write_creates_file PASSED [ 24%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_write_appends_not_overwrites PASSED [ 26%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_read_returns_most_recent_first PASSED [ 28%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_empty_log_returns_empty_list PASSED [ 31%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_decision_fields_preserved PASSED [ 33%]
+backend\tests\test_audit_log.py::TestAuditLogAppendOnly::test_each_entry_is_valid_json PASSED [ 35%]
+backend\tests\test_crud.py::test_write_read_roundtrip PASSED             [ 37%]
+backend\tests\test_dataset.py::TestDatasetEvaluation::test_tuning_set_metrics SKIPPED [ 40%]
+backend\tests\test_dataset.py::TestDatasetEvaluation::test_holdout_set_metrics SKIPPED [ 42%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Only 3 left in stock \u2014 order now!-Scarcity claim] PASSED [ 44%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[\u23f0 Hurry! Your deal expires in 2 hours-Countdown + hurry] PASSED [ 46%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Last chance to grab this offer!-Last chance] PASSED [ 48%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Don't miss out on this exclusive deal-FOMO] PASSED [ 51%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Limited-time offer, act now!-Limited time + act now] PASSED [ 53%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[This price won't be shown to you again-Won't be shown again] PASSED [ 55%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Before it's gone forever!-Before it's gone] PASSED [ 57%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[This exclusive rate expires at midnight-Exclusive rate expiry] PASSED [ 60%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[6 people are viewing this offer right now-Social proof] PASSED [ 62%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[One-time offer \u2014 disappears forever after today-One-time + disappears] PASSED [ 64%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Lock in your discount before it's gone!-Lock in pressure] PASSED [ 66%]
+backend\tests\test_prefilter.py::TestPrefilterCatchesUrgency::test_catches_urgency_pattern[Final reminder: this deal expires at midnight-Final reminder] PASSED [ 68%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Your order has been shipped.-Normal order update] PASSED [ 71%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Thank you for your purchase!-Thank you message] PASSED [ 73%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Your subscription will renew on March 1.-Simple renewal notice] PASSED [ 75%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Would you like to add gift wrapping?-Optional add-on] PASSED [ 77%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Final price: \u20b9599 (all taxes included).-Upfront pricing] PASSED [ 80%]
+backend\tests\test_prefilter.py::TestPrefilterPassesClean::test_passes_clean_message[Cancel anytime from Settings.-Easy cancellation] PASSED [ 82%]
+backend\tests\test_routes.py::TestInterceptFlow::test_clean_message_is_sent PASSED [ 84%]
+backend\tests\test_routes.py::TestInterceptFlow::test_urgency_message_is_held PASSED [ 86%]
+backend\tests\test_routes.py::TestInterceptFlow::test_held_message_appears_in_review_queue PASSED [ 88%]
+backend\tests\test_routes.py::TestInterceptFlow::test_approve_releases_message_and_logs_decision PASSED [ 91%]
+backend\tests\test_routes.py::TestInterceptFlow::test_reject_removes_from_queue_and_logs_decision PASSED [ 93%]
+backend\tests\test_routes.py::TestInterceptFlow::test_cannot_approve_a_message_that_was_never_held PASSED [ 95%]
+backend\tests\test_routes.py::TestInterceptFlow::test_classifier_failure_holds_not_sends PASSED [ 97%]
+backend\tests\test_routes.py::TestInterceptFlow::test_audit_log_file_receives_entries PASSED [100%]
+
+================================== FAILURES ===================================
+__ TestAllowlistSafetyInvariant.test_clears_false_urgency_with_real_deadline __
+backend\tests\test_allowlist.py:88: in test_clears_false_urgency_with_real_deadline
+    assert result.cleared_by_allowlist
+E   AssertionError: assert False
+E    +  where False = Flag(category=<DarkPatternCategory.FALSE_URGENCY: 'false_urgency'>, confidence=0.9, quoted_span='renewal notice', cleared_by_allowlist=False, suggested_rewrite=None).cleared_by_allowlist
+___ TestAllowlistSafetyInvariant.test_cannot_clear_urgency_by_name_dropping ___
+backend\tests\test_allowlist.py:129: in test_cannot_clear_urgency_by_name_dropping
+    assert not result.cleared_by_allowlist
+E   AssertionError: assert not True
+E    +  where True = Flag(category=<DarkPatternCategory.FALSE_URGENCY: 'false_urgency'>, confidence=0.9, quoted_span='test span', cleared_by_allowlist=True, suggested_rewrite=None).cleared_by_allowlist
+============================== warnings summary ===============================
+backend\database.py:23
+  C:\Users\User\Downloads\Consent-Gaurd-copilot-improveeval-docs (1)\Consent-Gaurd-copilot-improveeval-docs\backend\database.py:23: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+..\..\..\Miniconda3\Lib\site-packages\starlette\formparsers.py:12
+  C:\Users\User\Miniconda3\Lib\site-packages\starlette\formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_clears_false_urgency_with_real_deadline
+FAILED backend\tests\test_allowlist.py::TestAllowlistSafetyInvariant::test_cannot_clear_urgency_by_name_dropping
+============= 2 failed, 41 passed, 2 skipped, 2 warnings in 2.45s =============

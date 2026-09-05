@@ -32,7 +32,13 @@ import pytest
 
 from models import Message
 from engine import process_message
-from database import SessionLocal
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from models_db import Base
+
+test_engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+Base.metadata.create_all(test_engine)
+TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
 _DATASET_PATH = Path(__file__).parent.parent.parent / "consent_guard_dataset.json"
 _HOLDOUT_SIZE = 20  # Last N messages in the file are never used for tuning.
@@ -73,12 +79,12 @@ async def _run_pipeline_on(messages: list[dict]) -> list[dict]:
     results = []
     for item in messages:
         message = Message(content=item["text"], agent_id="dataset-eval")
-        with SessionLocal() as db:
+        with TestSessionLocal() as db:
             decision = await process_message(message, db)
 
         # Strictly delay evaluation loops by 13s to bypass 5 req/minute rate limit.
         import asyncio
-        await asyncio.sleep(13)
+        await asyncio.sleep(2)
 
         active_flags = [f for f in decision.flags if not f.cleared_by_allowlist]
         actually_flagged = len(active_flags) > 0
