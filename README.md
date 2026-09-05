@@ -1,7 +1,7 @@
 <div align="center">
   <img src="frontend/public/logo.svg" alt="Consent Guard Logo" width="120" />
   <h1>🛡️ Consent Guard</h1>
-  <p><strong>The Fail-Safe CCPA Compliance Layer for Agentic Commerce</strong></p>
+  <p><strong>The Fail-Safe CCPA-style Compliance Layer for Agentic Commerce</strong></p>
   
   <p>
     Built for the Razorpay Agentic Commerce Build-a-thon. 
@@ -10,7 +10,7 @@
   <p>
     <a href="#-the-agentic-dilemma">The Problem</a> •
     <a href="#-architecture--flow">Architecture</a> •
-    <a href="#-ccpa-taxonomy">CCPA Taxonomy</a> •
+    <a href="#-ccpa-taxonomy">Taxonomy</a> •
     <a href="#-quick-start">Installation</a>
   </p>
 </div>
@@ -19,9 +19,9 @@
 
 ## 🚨 The Agentic Dilemma
 
-As autonomous AI agents take over localized commerce—negotiating prices, upselling subscriptions, and forcing cart conversions—a dangerous side-effect emerges: **Optimization for manipulation**. 
+As autonomous AI agents take over localized commerce—negotiating prices, upselling subscriptions, and forcing cart conversions—a dangerous side-effect emerges: **Optimization for manipulation**
 
-To hit conversion metrics, AI agents drift toward B2C "dark patterns"—manufacturing false scarcity, deploying forced continuity traps, and utilizing confirm-shaming. If a payments platform routes these agentic messages unchecked, the merchants face severe legal penalties under modern consumer protection mandates (CCPA/Indian Guidelines).
+To hit conversion metrics, AI agents drift toward B2C "dark patterns"—manufacturing false scarcity, deploying forced continuity traps, and utilizing confirm-shaming. If a payments platform route...
 
 ### Consent Guard is the deterministic intercept layer.
 It sits directly between your commerce agent and the end-consumer, intercepting manipulative messages before they reach the customer.
@@ -30,7 +30,7 @@ It sits directly between your commerce agent and the end-consumer, intercepting 
 
 ## ⚙️ Architecture & Flow
 
-To serve as a viable B2B compliance gateway, a firewall cannot rely on 3000ms LLM calls dragging down every single chat message. Consent Guard utilizes a cascading execution pipeline to ensure **clean messages resolve natively via the regex pre-filter**, while suspicious messages are conditionally routed to Claude Haiku 4.5 for definitive taxonomy mapping.
+To serve as a viable B2B compliance gateway, a firewall cannot rely on 3000ms LLM calls dragging down every single chat message. Consent Guard utilizes a cascading execution pipeline to ensure classification latency stays low while maintaining auditability.
 
 ```mermaid
 graph TD
@@ -42,13 +42,13 @@ graph TD
     A[Merchant AI Agent]:::agent -->|Message Emit| B(Regex Pre-Filter)
     
     B -->|Urgency Detected| C{Deterministic Allowlist}
-    B -->|No Urgency| D("Claude 4.5 Haiku (example model)")
+    B -->|No Urgency| D(LLM Classifier)
 
     C -->|Real DB Mandate Found| E[Clear & Pass]:::safe
     C -->|No Date Found| F[Flag: False Urgency]:::held
     
     D -->|Clean| E
-    D -->|Manipulative Text| G[Flag: CCPA/DPDP Violation]:::held
+    D -->|Manipulative Text| G[Flag: Taxonomy Violation]:::held
     
     F --> H[(SQLite Audit Ledger)]
     G --> H
@@ -57,15 +57,15 @@ graph TD
 ```
 
 ### Technical Highlights
-1. **True Server-Sent Events (SSE)**: We dropped the HTTP polling crutches. The backend FastAPI maintains active `asyncio.Queue` channels to the Next.js React UI. Once a classification decision is made, the SSE push to the dashboard completes in sub-40ms. Note: end-to-end latency when the LLM classifier path is invoked (4 of 5 categories) includes a real network round-trip to Claude, which typically takes hundreds of milliseconds to a few seconds depending on message complexity.
-2. **Immutable SQLite + SQLAlchemy**: In memory arrays (`[]`) vanish on server reboots. A compliance tracker must be auditable. Every decision is written through strict SQLAlchemy ORMs to `consent_guard.db` in `WAL-Mode` (Write-Ahead Logging) to ensure zero threading bottlenecks during scale.
-3. **Fail-Closed Safeties**: If Anthropic's API drops or returns malformed JSON, the message doesn't glide through silently. It flags itself with `CLASSIFIER_ERROR` and halts. **We prioritize safety over velocity.**
+1. **True Server-Sent Events (SSE)**: The backend FastAPI maintains active `asyncio.Queue` channels to the Next.js React UI. Once a classification decision is available it is pushed to auditors via SSE.
+2. **Immutable SQLite + SQLAlchemy**: Every decision is written through strict SQLAlchemy ORMs to an on-disk SQLite database for auditability.
+3. **Fail-Closed Safeties**: If an external model API fails, the message is flagged with `CLASSIFIER_ERROR` and held for human review.
 
 ---
 
-## ⚖️ The CCPA Taxonomy Mapping
+## ⚖️ Taxonomy Mapping
 
-The engine doesn't guess if an agent is being rude. It executes deterministic parsing against the 5 critical dark patterns codified in recent commerce guidelines:
+The engine executes deterministic parsing and LLM classification against five dark-pattern categories used in commerce compliance efforts:
 
 | Category Code | Execution Description | Handling Pipeline |
 | :--- | :--- | :--- |
@@ -75,46 +75,27 @@ The engine doesn't guess if an agent is being rude. It executes deterministic pa
 | `DRIP_PRICING` | Concealing mandatory service/tax fees until the final checkout screen. | Caught by LLM Engine |
 | `BASKET_SNEAKING` | Pre-selecting paid add-ons without explicit user opt-in. | Caught by LLM Engine |
 
-> 🤖 **LLM Counterfactual Engine:** Our structured JSON prompting forces the LLM to output a `suggested_rewrite`. When Consent Guard blocks a message, it doesn't just hold it — it generates a neutral, factual alternative so your merchant agents learn how to close the sale without violating the law.
+> Note: we use a CCPA-style taxonomy adapted for Indian commerce contexts; if you intend to map to a specific regulation (for example DPDP) add that reference here.
 
 ---
 
-## 🚀 Performance Metrics
+## 🚀 Performance Notes
 
 **Deterministic layer (rule-based prefilter + allowlist, no LLM required):**
-Verified against our synthetic 150-message set, we observed 0/30 errors (0 false
-positives, 0 false negatives) on `false_urgency` detection (n=30, including 10
-hard-negative cases with real, system-recorded deadlines).
+Developer-run checks on a small sample of false_urgency examples used during development showed no detected errors; this was an internal developer test (n=30) and not a full, held-out evaluation. The full dataset and per-category counts are included in `consent_guard_dataset.json` and an evaluation reproduction script is in `eval/`.
 
-**LLM-classified categories (confirm_shaming, forced_continuity,
-drip_pricing, basket_sneaking):** These four categories are fully
-implemented and unit-tested for correctness of prompt structure, response
-parsing, and fail-safe behavior on API failure. A full holdout evaluation
-was blocked at submission time by third-party API quota limits across
-multiple providers (Anthropic credits, Google AI Studio free-tier daily
-quota) — documented honestly rather than estimated. See "API Integration
-& Resilience" below for the debugging process.
+**LLM-classified categories (confirm_shaming, forced_continuity, drip_pricing, basket_sneaking):** These categories are implemented and unit-tested for prompt structure and parsing. A comprehensive holdout evaluation was not performed due to third-party API quota limits during development. See `eval/README.md` for reproduction steps.
 
-> **Honest note:** If any category shows low recall, it is stated here plainly. We report what the classifier actually does, not what we wish it did.
-
-### API Integration & Resilience: The Debugging Journey
-During development, we hit three separate API integration failures on the live pathway:
-1. **Model Format String Mapping**: Initial mismatch in formatting AI provider SDK model strings versus generic names.
-2. **Endpoint Deprecation (404s)**: Attempting to use older models resulted in 404s because the specific access key tier deprecated standard `1.5-flash` for the `gemini-flash-latest` unified endpoint. 
-3. **Rate-Limit Walls (429/503)**: The test evaluation fired instances rapidly, hitting Google's strict transient free-tier limit, returning 503 Service Unavailable errors. 
-
-Rather than masking these failures, they were directly integrated: the fail-safe holding queue strictly intercepts and holds any compliance message that triggers an API collapse. We traced each failure to its root cause, injected an asynchronous backoff-and-retry strategy into the classification module to weather the transient load, and preserved compliance integrity reliably.
+> Honest note: If any category shows low recall in your runs, document it in `eval/results.md` — we prefer transparency over unsupported claims.
 
 ---
 
 ## ⚡ The Audit Control Interface (Frontend)
 
-The internal review dashboard is engineered specifically for Compliance Officers tracking agent drift. 
-- **Glassmorphic Focus:** Removed standard UI sidebars to prioritize the audit transcript line-by-line.
-- **Inline Multi-Span Highlighting:** Sophisticated Case-Insensitive Regex injects redlines behind manipulated texts in real-time.
-- **Dynamic Action Telemetry:** The Metrics module compiles SQLite rows natively into dynamic Bar Charts displaying your agent's drift tendencies over the last 24 hours.
-
-*(UI Design Inspiration drawn from Vercel's Infrastructure telemetry, Linear's issue tracking, and high-fidelity native macOS glass surfaces.)*
+The internal review dashboard is engineered for Compliance Officers tracking agent drift.
+- **Glassmorphic Focus:** Removed standard UI sidebars to prioritize the audit transcript.
+- **Inline Multi-Span Highlighting:** Case-insensitive regex injects redlines behind manipulated texts in real-time.
+- **Dynamic Action Telemetry:** The Metrics module compiles SQLite rows into dynamic bar charts displaying drift tendencies.
 
 ---
 
@@ -124,17 +105,14 @@ The internal review dashboard is engineered specifically for Compliance Officers
 ```bash
 cd backend
 python -m venv venv
-
-# On Windows:
+# Windows
 venv\Scripts\activate
-# On macOS / Linux:
-# source venv/bin/activate
-
+# macOS / Linux
+source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env     # Add your LLM API Key
-
-# Start the FastAPI server using uvicorn:
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+cp .env.example .env     # Add your Anthropic / OpenAI / Google AI keys as needed
+# Start the FastAPI server with uvicorn
+uvicorn backend.main:app --reload --port 8000
 ```
 
 ### 2. Terminal B (Frontend)
@@ -144,4 +122,11 @@ npm install
 npm run dev
 ```
 
-Dashboard runs on `http://localhost:3000`. Backend processes on `:8000`.
+Dashboard: http://localhost:3000
+Backend API: http://localhost:8000
+
+
+## Try asking
+- How does the allowlist check determine that a deadline is valid? (See backend/deadline_store.py)
+- Where is the audit ledger written and how can I export it? (See backend/models_db.py and backend/crud.py)
+- How do I reproduce the dataset counts and run the small developer checks? (See eval/README.md)
