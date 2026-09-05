@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function DemoGuide() {
+interface DemoGuideProps {
+  onSimulate: () => Promise<void>;
+  replayLoading: boolean;
+}
+
+export default function DemoGuide({ onSimulate, replayLoading }: DemoGuideProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [completed, setCompleted] = useState<Record<number, boolean>>({});
 
@@ -47,6 +52,15 @@ export default function DemoGuide() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+              <button
+                className="btn-primary"
+                onClick={() => void onSimulate()}
+                disabled={replayLoading}
+                style={{ justifyContent: 'center', width: '100%', background: 'var(--accent-teal)', color: 'white' }}
+              >
+                {replayLoading ? 'Running guided trace...' : 'Run guided demo'}
+              </button>
+
               {tasks.map((task, idx) => {
                 const isDone = completed[idx];
                 return (
