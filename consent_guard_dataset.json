@@ -98,21 +98,21 @@
         },
         {
             "id": "msg_013",
-            "text": "Your your subscription total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "text": "Your subscription total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
         },
         {
             "id": "msg_014",
-            "text": "Your your monthly refill total is ₹1499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "text": "Your monthly refill total is ₹1499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
         },
         {
             "id": "msg_015",
-            "text": "Your your monthly refill total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "text": "Your monthly refill total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
             "category": "drip_pricing",
             "expected_flag": false,
             "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
@@ -126,7 +126,7 @@
         },
         {
             "id": "msg_017",
-            "text": "Your your ride credits pack total is ₹1499 — plus a ₹49 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "text": "Your ride credits pack total is ₹1499 — plus a ₹49 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -147,7 +147,7 @@
         },
         {
             "id": "msg_020",
-            "text": "Your your grocery box total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "text": "Your grocery box total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
             "category": "drip_pricing",
             "expected_flag": false,
             "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
@@ -196,7 +196,7 @@
         },
         {
             "id": "msg_027",
-            "text": "Your your monthly refill total is ₹499 — plus a ₹79 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "text": "Your monthly refill total is ₹499 — plus a ₹79 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -294,7 +294,7 @@
         },
         {
             "id": "msg_041",
-            "text": "Your your Premium plan total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
+            "text": "Your Premium plan total, including all taxes and fees, is ₹1099. No hidden charges at checkout.",
             "category": "drip_pricing",
             "expected_flag": false,
             "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
@@ -322,7 +322,7 @@
         },
         {
             "id": "msg_045",
-            "text": "Your your order total is ₹999 — plus a ₹79 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "text": "Your order total is ₹999 — plus a ₹79 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -343,7 +343,7 @@
         },
         {
             "id": "msg_048",
-            "text": "Your your storage plan mandate expires on 16 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "text": "Your storage plan mandate expires on 16 Feb as per your original authorization — no action needed if you'd like it to continue.",
             "category": "false_urgency",
             "expected_flag": false,
             "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
@@ -434,7 +434,7 @@
         },
         {
             "id": "msg_061",
-            "text": "Your your ride credits pack will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "text": "Your ride credits pack will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
             "category": "forced_continuity",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
@@ -448,7 +448,7 @@
         },
         {
             "id": "msg_063",
-            "text": "Your your subscription total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "text": "Your subscription total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -504,7 +504,7 @@
         },
         {
             "id": "msg_071",
-            "text": "Your your Premium plan total is ₹999 — plus a ₹99 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "text": "Your Premium plan total is ₹999 — plus a ₹99 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -518,7 +518,7 @@
         },
         {
             "id": "msg_073",
-            "text": "Your your grocery box total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "text": "Your grocery box total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -546,7 +546,7 @@
         },
         {
             "id": "msg_077",
-            "text": "Your your order mandate expires on 13 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "text": "Your order mandate expires on 13 Feb as per your original authorization — no action needed if you'd like it to continue.",
             "category": "false_urgency",
             "expected_flag": false,
             "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
@@ -609,7 +609,7 @@
         },
         {
             "id": "msg_086",
-            "text": "Your your storage plan total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
+            "text": "Your storage plan total is ₹1499 — plus a ₹49 'convenience fee' and ₹59 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -658,7 +658,7 @@
         },
         {
             "id": "msg_093",
-            "text": "Your your ride credits pack total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "text": "Your ride credits pack total is ₹499 — plus a ₹49 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -707,7 +707,7 @@
         },
         {
             "id": "msg_100",
-            "text": "Your your SIP installment mandate expires on 3 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "text": "Your SIP installment mandate expires on 3 Feb as per your original authorization — no action needed if you'd like it to continue.",
             "category": "false_urgency",
             "expected_flag": false,
             "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
@@ -721,7 +721,7 @@
         },
         {
             "id": "msg_102",
-            "text": "Your your order total is ₹999 — plus a ₹99 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
+            "text": "Your order total is ₹999 — plus a ₹99 'convenience fee' and ₹89 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
@@ -763,7 +763,7 @@
         },
         {
             "id": "msg_108",
-            "text": "Your your SIP installment will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "text": "Your SIP installment will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
             "category": "forced_continuity",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
@@ -812,14 +812,14 @@
         },
         {
             "id": "msg_115",
-            "text": "Your your subscription total is ₹2499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
+            "text": "Your subscription total is ₹2499 — plus a ₹79 'convenience fee' and ₹29 'platform fee' shown only at final payment.",
             "category": "drip_pricing",
             "expected_flag": true,
             "notes": "Mandatory fees withheld from the headline price until the final step."
         },
         {
             "id": "msg_116",
-            "text": "Your your storage plan mandate expires on 9 Feb as per your original authorization — no action needed if you'd like it to continue.",
+            "text": "Your storage plan mandate expires on 9 Feb as per your original authorization — no action needed if you'd like it to continue.",
             "category": "false_urgency",
             "expected_flag": false,
             "notes": "Deadline matches a real system-recorded date (mandate/policy record) — should be cleared by the allowlist check."
@@ -833,7 +833,7 @@
         },
         {
             "id": "msg_118",
-            "text": "Your your grocery box will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "text": "Your grocery box will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
             "category": "forced_continuity",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
@@ -966,7 +966,7 @@
         },
         {
             "id": "msg_137",
-            "text": "Your your monthly refill will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "text": "Your monthly refill will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
             "category": "forced_continuity",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."
@@ -1029,7 +1029,7 @@
         },
         {
             "id": "msg_146",
-            "text": "Your your grocery box total, including all taxes and fees, is ₹599. No hidden charges at checkout.",
+            "text": "Your grocery box total, including all taxes and fees, is ₹599. No hidden charges at checkout.",
             "category": "drip_pricing",
             "expected_flag": false,
             "notes": "All-inclusive price stated upfront — no fees withheld or revealed later."
@@ -1043,7 +1043,7 @@
         },
         {
             "id": "msg_148",
-            "text": "Your your Premium plan will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
+            "text": "Your Premium plan will renew on schedule. You can cancel anytime from Settings > Manage Subscription — it takes effect immediately.",
             "category": "forced_continuity",
             "expected_flag": false,
             "notes": "Cancellation is as easy and immediate as sign-up — no manipulative friction."

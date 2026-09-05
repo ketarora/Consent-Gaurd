@@ -21,7 +21,7 @@
 
 As autonomous AI agents take over localized commerce—negotiating prices, upselling subscriptions, and forcing cart conversions—a dangerous side-effect emerges: **Optimization for manipulation**. 
 
-To hit conversion metrics, AI agents drift toward B2C "dark patterns"—manufacturing false scarcity, deploying forced continuity traps, and utilizing confirm-shaming. If a payments platform routes these agentic messages unchecked, the merchants face severe legal penalties under the newly rolled-out CCPA compliance mandates.
+To hit conversion metrics, AI agents drift toward B2C "dark patterns"—manufacturing false scarcity, deploying forced continuity traps, and utilizing confirm-shaming. If a payments platform routes these agentic messages unchecked, the merchants face severe legal penalties under modern consumer protection mandates (CCPA/Indian Guidelines).
 
 ### Consent Guard is the deterministic intercept layer.
 It sits directly between your commerce agent and the end-consumer, intercepting manipulative messages before they reach the customer.
@@ -82,9 +82,9 @@ The engine doesn't guess if an agent is being rude. It executes deterministic pa
 ## 🚀 Performance Metrics
 
 **Deterministic layer (rule-based prefilter + allowlist, no LLM required):**
-Verified against the full 150-message dataset — 0 false positives, 0 false
-negatives on `false_urgency` detection (n=30, including 10 hard-negative
-cases with real, system-recorded deadlines).
+Verified against our synthetic 150-message set, we observed 0/30 errors (0 false
+positives, 0 false negatives) on `false_urgency` detection (n=30, including 10
+hard-negative cases with real, system-recorded deadlines).
 
 **LLM-classified categories (confirm_shaming, forced_continuity,
 drip_pricing, basket_sneaking):** These four categories are fully
@@ -126,8 +126,10 @@ cd backend
 python -m venv venv
 venv\Scripts\activate    # On Mac/Linux: source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env     # Add your Anthropic API Key
-python main.py
+cp .env.example .env     # Add your LLM API Key
+
+# Start the FastAPI server using uvicorn:
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### 2. Terminal B (Frontend)

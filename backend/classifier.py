@@ -36,7 +36,7 @@ _LLM_CATEGORIES = {
     DarkPatternCategory.FALSE_URGENCY,  # fallback for ambiguous urgency
 }
 
-_SYSTEM_PROMPT = """You are a compliance classifier for India's Consumer Protection Act (CCPA) dark-pattern taxonomy.
+_SYSTEM_PROMPT = """You are a compliance classifier for CCPA and DPDP dark-pattern taxonomies.
 
 Your job: analyze the given agent-to-customer message and determine if it contains any of these dark-pattern categories:
 

@@ -45,7 +45,7 @@ export default function ExhibitCard({ onDismiss }: ExhibitCardProps) {
 
           <p style={{ margin: 0, fontSize: 'var(--text-base)' }}>
             AI agents operate within numeric limits, but lack guardrails on <em>phrasing</em>. 
-            Consent Guard evaluates outbound packets against India's CCPA Dark Pattern Taxonomy before delivery.
+            Consent Guard evaluates outbound packets against strict CCPA/DPDP Dark Pattern Taxonomies before delivery.
           </p>
         </div>
 
