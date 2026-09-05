@@ -397,3 +397,21 @@ body::after {
   width: 100px;
   font-variant-numeric: tabular-nums;
 }
+
+/* ── OP Demo Upgrades ─────────────────────────────────────── */
+.badge-allowlist-cleared {
+  display: inline-flex; align-items: center; gap: 4px; 
+  background: var(--accent-teal-subtle); color: var(--accent-teal); 
+  padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; 
+  border: 1px solid var(--accent-teal); margin-left: 8px;
+  vertical-align: middle;
+}
+.redline-span.is-cleared {
+  background: var(--accent-teal-subtle); color: var(--accent-teal-text);
+  border-bottom: 2px solid var(--accent-teal);
+}
+@keyframes flashRow { 
+  0% { background: rgba(245, 158, 11, 0.2); } 
+  100% { background: transparent; } 
+}
+.animate-flash { animation: flashRow 2s ease-out; }
