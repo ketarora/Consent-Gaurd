@@ -151,9 +151,17 @@ async def _call_gemini(api_key: str, model: str, text: str) -> Optional[Flag]:
     }
     
     async with httpx.AsyncClient(timeout=30.0) as client:
-        response = await client.post(url, headers=headers, json=payload)
-        response.raise_for_status()
-        
+        max_retries = 3
+        for attempt in range(max_retries):
+            response = await client.post(url, headers=headers, json=payload)
+            if response.status_code in (503, 429):
+                if attempt < max_retries - 1:
+                    import asyncio
+                    await asyncio.sleep(10.0 * (attempt + 1))
+                    continue
+            response.raise_for_status()
+            break
+            
     data = response.json()
     try:
         candidate = data["candidates"][0]["content"]["parts"][0]["text"]
