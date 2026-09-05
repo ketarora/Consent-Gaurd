@@ -8,6 +8,9 @@ on:
       - improve/eval-docs
       - copilot/improveeval-docs
 
+permissions:
+  contents: read
+
 jobs:
   backend-tests-and-eval:
     runs-on: ubuntu-latest
