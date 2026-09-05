@@ -48,7 +48,7 @@ export default function LedgerPanel({ logs }: LedgerPanelProps) {
           <table className="ledger-table">
             <tbody>
               {logs.map((log) => (
-                <tr key={log.id} className="ledger-row">
+                <tr key={log.id} className="ledger-row animate-flash">
                   <td className="ledger-cell time">{formatTime(log.timestamp)}</td>
                   <td className="ledger-cell category">
                     {log.flags.length > 0 
