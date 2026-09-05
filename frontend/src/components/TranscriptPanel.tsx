@@ -84,7 +84,7 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
             </div>
 
             <div style={{ background: 'var(--bg-surface)', padding: 'var(--space-4)', borderRadius: 'var(--rad-lg)', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--accent-red)', marginBottom: 'var(--space-1)' }}>TEST 2: THE DARK-PATTERN MANIPULATION</div>
+              <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--accent-red)', marginBottom: 'var(--space-1)' }}>TEST 2: POLICY DEVIATION</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>
                 "Confirm your order in the next 10 minutes or your cart expires forever."
               </div>
