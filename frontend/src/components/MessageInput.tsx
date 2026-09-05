@@ -51,22 +51,20 @@ export default function MessageInput({ onSend, disabled, quickMessages = [] }: M
       className={`input-prompt-wrapper ${sending ? 'processing' : ''}`}
       style={{ position: 'relative' }}
     >
-      {quickMessages.length > 0 && (
-        <div style={{ position: 'absolute', top: '-36px', left: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          {quickMessages.map((message, idx) => (
-            <button
-              key={`${message}-${idx}`}
-              type="button"
-              className="btn-secondary"
-              onClick={() => void sendMessage(message, false)}
-              disabled={disabled || sending}
-              style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '999px' }}
-            >
-              Simulate {idx + 1}
-            </button>
-          ))}
-        </div>
-      )}
+      <div style={{ position: 'absolute', top: '-42px', left: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("Confirm your order in the next 10 minutes or your cart expires forever.", false)} disabled={disabled || sending}>
+          <span className="chip-icon">🔴</span> Test 1: False Urgency (FTX'26)
+        </button>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("Scheduled mandate renewal notice due tomorrow.", false)} disabled={disabled || sending}>
+          <span className="chip-icon">🟢</span> Test 2: Legit Expiry (Allowlist Override)
+        </button>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("Keep my Premium plan, or click here if you hate saving money.", false)} disabled={disabled || sending}>
+          <span className="chip-icon">🟡</span> Test 3: Confirm Shaming
+        </button>
+        <button type="button" className="preset-chip" onClick={() => void sendMessage("We've added a travel insurance to your checkout for just 20 bucks.", false)} disabled={disabled || sending}>
+          <span className="chip-icon">🟣</span> Test 4: Basket Sneaking
+        </button>
+      </div>
 
       <div className="prompt-prefix" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -114,6 +112,15 @@ export default function MessageInput({ onSend, disabled, quickMessages = [] }: M
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes spin { 100% { transform: rotate(360deg); } }
         .input-prompt-wrapper.processing { border-color: var(--accent-amber-subtle); box-shadow: 0 0 0 2px var(--accent-amber-subtle); }
+        .preset-chip {
+          background: rgba(255,255,255,0.7); border: 1px solid var(--border-strong);
+          padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;
+          color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
+          display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);
+        }
+        .preset-chip:hover:not(:disabled) { background: #fff; transform: translateY(-1px); box-shadow: var(--shadow-md); color: var(--text-primary); }
+        .preset-chip:disabled { opacity: 0.5; cursor: not-allowed; }
+        .chip-icon { font-size: 12px; }
       `}} />
     </motion.form>
   );
