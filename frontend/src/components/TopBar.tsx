@@ -9,10 +9,11 @@ interface TopBarProps {
   onReset: () => void;
   onReplay: () => void;
   onShowSummary: () => void;
+  onGuide: () => void;
   replayLoading?: boolean;
 }
 
-export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSummary, replayLoading }: TopBarProps) {
+export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSummary, onGuide, replayLoading }: TopBarProps) {
   const exportJSONL = () => {
     window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/audit-log.jsonl`, '_blank');
   };
@@ -54,6 +55,14 @@ export default function TopBar({ view, onViewChange, onReset, onReplay, onShowSu
           }}
         >
           {replayLoading ? 'RUNNING TRACE...' : 'RUN GUIDED TRACE'}
+        </button>
+
+        <button 
+          className="btn-secondary" 
+          onClick={onGuide} 
+          style={{ height: 'var(--space-7)', fontSize: 'var(--text-xs)', padding: '0 10px', background: 'var(--accent-teal)', color: 'white', borderColor: 'transparent' }}
+        >
+          [DEMO WALKTHROUGH]
         </button>
 
         <button 
