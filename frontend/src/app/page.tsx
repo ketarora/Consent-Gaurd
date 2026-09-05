@@ -180,6 +180,7 @@ export default function ConsentGuardApp() {
         onReset={handleReset} 
         onReplay={handleReplay}
         onShowSummary={() => setShowSummary(true)}
+        onGuide={() => setShowOnboarding(true)}
         replayLoading={replayLoading}
       />
 
