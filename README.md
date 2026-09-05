@@ -42,13 +42,13 @@ graph TD
     A[Merchant AI Agent]:::agent -->|Message Emit| B(Regex Pre-Filter)
     
     B -->|Urgency Detected| C{Deterministic Allowlist}
-    B -->|No Urgency| D(Claude 4.5 Haiku)
+    B -->|No Urgency| D("Claude 4.5 Haiku (example model)")
 
     C -->|Real DB Mandate Found| E[Clear & Pass]:::safe
     C -->|No Date Found| F[Flag: False Urgency]:::held
     
     D -->|Clean| E
-    D -->|Manipulative Text| G[Flag: CCPA Violation]:::held
+    D -->|Manipulative Text| G[Flag: CCPA/DPDP Violation]:::held
     
     F --> H[(SQLite Audit Ledger)]
     G --> H
@@ -124,7 +124,12 @@ The internal review dashboard is engineered specifically for Compliance Officers
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate    # On Mac/Linux: source venv/bin/activate
+
+# On Windows:
+venv\Scripts\activate
+# On macOS / Linux:
+# source venv/bin/activate
+
 pip install -r requirements.txt
 cp .env.example .env     # Add your LLM API Key
 
