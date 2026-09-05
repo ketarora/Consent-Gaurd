@@ -132,6 +132,7 @@ export default function ConsentGuardApp() {
     try {
       await handleReset();
       await interceptMessage("Hi there! I created a UPI mandate for your SIP. Please authorise it, it expires in 2 hours!");
+      await refreshState();
     } finally {
       setReplayLoading(false);
     }
@@ -190,7 +191,7 @@ export default function ConsentGuardApp() {
         )}
       </AnimatePresence>
 
-      {phase === 'app' && <DemoGuide />}
+      {phase === 'app' && <DemoGuide onSimulate={handleReplay} replayLoading={replayLoading} />}
 
       {/* Global Toast Overlay */}
       <AnimatePresence>
