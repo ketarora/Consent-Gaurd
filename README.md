@@ -106,7 +106,7 @@ The internal review dashboard is engineered for Compliance Officers tracking age
 cd backend
 python -m venv venv
 # Windows
-venv\Scripts\activate
+venv\\Scripts\\activate
 # macOS / Linux
 source venv/bin/activate
 pip install -r requirements.txt

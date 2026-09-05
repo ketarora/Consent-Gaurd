@@ -2,8 +2,8 @@
 Consent Guard — FastAPI application entry point.
 
 A compliance governance layer that detects manipulative agent-to-customer
-messaging mapped to India's CCPA dark-pattern taxonomy before it reaches
-a customer, independent of whether the message stayed within numeric
+messaging mapped to a CCPA-style dark-pattern taxonomy adapted for Indian
+commerce before it reaches a customer, independent of whether the message stayed within numeric
 spend/discount guardrails.
 
 Built for Razorpay's AI Buildathon, Track 1 (Agentic Commerce).
@@ -38,7 +38,7 @@ app = FastAPI(
     title="Consent Guard",
     description=(
         "Compliance governance layer for AI commerce agents. "
-        "Detects CCPA dark patterns in agent-to-customer messages "
+        "Detects CCPA-style dark-patterns in agent-to-customer messages "
         "before they reach the customer."
     ),
     version="1.0.0",
