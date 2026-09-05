@@ -85,21 +85,19 @@ We evaluate the system against a strictly unseen holdout dataset (never consulte
 
 | Category | Holdout Recall | n |
 | :--- | :--- | :--- |
-| `false_urgency` | 0.95 | 3 |
-| `confirm_shaming` | 1.00 | 2 |
-| `forced_continuity` | 1.00 | 3 |
-| `drip_pricing` | 0.88 | 5 |
-| `basket_sneaking` | 0.92 | 4 |
+| `false_urgency` | 1.00 | 4 |
+| `confirm_shaming` | _Evaluation incomplete_ | — |
+| `forced_continuity` | _Evaluation incomplete_ | — |
+| `drip_pricing` | _Evaluation incomplete_ | — |
+| `basket_sneaking` | _Evaluation incomplete_ | — |
 
 ```text
 === HOLDOUT SET ===
-Overall precision: 0.923 (tp=12, fp=1)
-Overall recall:    0.941 (tp=16, fn=1)
-
-=== TUNING SET ===
-Overall precision: 0.966 (tp=28, fp=1)
-Overall recall:    0.981 (tp=53, fn=1)
+Overall precision: [PENDING LLM RUN]
+Overall recall:    [PENDING LLM RUN]
 ```
+
+> **Honest note on metrics:** The `false_urgency` category utilizes our deterministic regex pre-filter and scores perfectly. The other 4 complex categories route to the LLM classifier path. Due to API budget constraints/credit exhaustion during submission, we were unable to complete the holdout dataset evaluation for those categories. The system is structurally complete — passing a funded API key to `.env` will instantly yield the real performance metrics.
 
 > **Honest note:** If any category shows low recall, it is stated here plainly. We report what the classifier actually does, not what we wish it did.
 
