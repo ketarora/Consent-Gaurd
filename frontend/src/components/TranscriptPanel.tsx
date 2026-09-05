@@ -19,7 +19,7 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
       return msg.content;
     }
 
-    const activeFlags = msg.decision.flags.filter(f => !f.cleared_by_allowlist);
+    const activeFlags = msg.decision.flags; // Show all flags to render allowlist badges inline
     if (activeFlags.length === 0) return msg.content;
 
     // Build a safe regex pattern escaping special characters
@@ -43,21 +43,40 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
       if (matchedFlag) {
         let badgeClass = 'flag-amber';
         if (isRejected) badgeClass = 'flag-red';
-        if (isApproved) badgeClass = 'flag-teal';
+        if (isApproved || matchedFlag.cleared_by_allowlist) badgeClass = 'flag-teal';
+
+        const categoryToCitation: Record<string, string> = {
+          'false_urgency': 'CCPA 2023 § 5(1) · False Urgency',
+          'basket_sneaking': 'CCPA 2023 § 5(6) · Basket Sneaking',
+          'confirm_shaming': 'CCPA 2023 § 5(3) · Confirm Shaming',
+          'forced_continuity': 'CCPA 2023 § 5(2) · Forced Continuity',
+          'drip_pricing': 'CCPA 2023 § 5(4) · Drip Pricing'
+        };
+        const citation = categoryToCitation[matchedFlag.category] || matchedFlag.category.replace(/_/g, ' ').toUpperCase();
 
         return (
           <React.Fragment key={idx}>
-            <span className={`redline-span ${isRejected ? 'is-rejected' : ''}`}>
+            <span className={`redline-span ${isRejected ? 'is-rejected' : ''} ${matchedFlag.cleared_by_allowlist ? 'is-cleared' : ''}`}>
               {part}
             </span>
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className={`flag-badge ${badgeClass}`}
-              style={{ marginLeft: '4px', verticalAlign: 'middle' }}
-            >
-              § {matchedFlag.category.replace(/_/g, ' ').toUpperCase()} ({Math.round(matchedFlag.confidence * 100)}%)
-            </motion.span>
+            {matchedFlag.cleared_by_allowlist ? (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="badge-allowlist-cleared"
+              >
+                ✓ ALLOWLIST VERIFIED: Matched Local Record
+              </motion.span>
+            ) : (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className={`flag-badge ${badgeClass}`}
+                style={{ marginLeft: '4px', verticalAlign: 'middle' }}
+              >
+                ⚠ {citation} · {Math.round(matchedFlag.confidence * 100)}% Match
+              </motion.span>
+            )}
           </React.Fragment>
         );
       }
@@ -185,7 +204,7 @@ export default function TranscriptPanel({ messages, onApprove, onReject, loading
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--accent-teal)', fontSize: 'var(--text-xs)', fontWeight: 600, background: 'var(--accent-teal-subtle)', padding: '8px 12px', borderRadius: 'var(--rad-md)' }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      MESSAGE FORWARDED TO DESTINATION
+                      {msg.decision.flags?.some(f => f.cleared_by_allowlist) ? 'CLEARED BY ALLOWLIST — MESSAGE FORWARDED' : 'MANUALLY APPROVED — MESSAGE FORWARDED'}
                     </div>
                   </motion.div>
                 )}
